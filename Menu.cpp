@@ -79,3 +79,12 @@ void waitForUser() {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
 }
+
+void adminLogIn() {
+    //idea for advanced feature
+    //set login credentials as a struct of username and password
+    //operator overload the = to see if they are correct, easy marks
+    //ran out of time before lab, will implement later
+    std::cout << "\nusername: ";
+    std::cout << "\npassword: ";
+}
