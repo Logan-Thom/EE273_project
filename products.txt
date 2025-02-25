@@ -1,0 +1,5 @@
+1,Smartphone,Electronics,699.99
+2,Laptop,Electronics,999.99
+3,Jeans,Clothing,39.99
+4,Headphones,Electronics,199.99
+5,Book,Books,15.99
