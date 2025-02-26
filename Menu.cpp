@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "Basket.h"
 #include "Database.h"
+#include "AdminLogin.h"
 #include <iostream>
 #include <vector>
 #include <limits>
@@ -85,6 +86,25 @@ void adminLogIn() {
     //set login credentials as a struct of username and password
     //operator overload the = to see if they are correct, easy marks
     //ran out of time before lab, will implement later
+
+    AdminLogin correct_details("root","toor");
+    
+    std::string usrnm;
+    std::string pswrd;
     std::cout << "\nusername: ";
+    std::cin >> usrnm;
     std::cout << "\npassword: ";
+    std::cin >> pswrd;
+
+    
+
+    AdminLogin* adminloginptr = new AdminLogin(usrnm, pswrd);
+
+    //input validation time!!!
+    if(*adminloginptr == correct_details){
+        delete[] adminloginptr;
+        //correct, do something 
+    } else {
+        //incorrect, do something
+    }
 }
