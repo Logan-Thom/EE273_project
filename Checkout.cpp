@@ -1,4 +1,7 @@
-#include "Checkout.h"
+﻿#include "Checkout.h"
+#include "email_sender.h"
+#include "menu.h"
+#include "screen_utilities.h"
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -18,12 +21,14 @@ std::string getCurrentTimestamp() {
 
 // Function to handle checkout
 void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
+    clearScreen();
     if (basket.empty()) {
-        std::cout << "\nYour basket is empty. Add products before checking out.\n";
-        return;
+        std::cout << "\nYour basket is empty. Add products before checking out.\n\n";
+        pauseProgram();
+        handleMenuSelection(basket);
     }
 
-    std::string cardNumber, expiryDate, cvv;
+    std::string cardNumber, expiryDate, cvv, email;
     std::cout << "\n================ Checkout ================\n";
     std::cout << "Enter your payment details:\n";
 
@@ -33,7 +38,8 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     std::cin >> expiryDate;
     std::cout << "CVV (3 digits): ";
     std::cin >> cvv;
-
+    std::cout << "Email: ";
+    std::cin >> email;
     // Validate card details
     if (cardNumber.length() != 16 || expiryDate.length() != 5 || cvv.length() != 3) {
         std::cout << "Invalid payment details! Please try again.\n";
@@ -65,6 +71,7 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     orderFile << totalCost << "\n"; // Save total cost at the end
 
     orderFile.close();
+    send_order_emails(email, basket, timestamp, cardNumber, expiryDate, totalCost);
 
 
     // Clear the basket

@@ -1,9 +1,13 @@
 #include "Menu.h"
-#include <iostream>
-//changed
+#include <vector>
 
 int main() {
-    handleMenuSelection(); // Start menu system
+    std::vector<std::pair<Product, int>> basket;
+
+    while (true) {
+        handleMenuSelection(basket);
+        break;  // **Break out of the loop when user exits**
+    }
+
     return 0;
 }
-

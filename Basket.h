@@ -7,5 +7,6 @@
 
 void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products);
 void viewBasket(const std::vector<std::pair<Product, int>>& basket);
+void menuBasket(std::vector<std::pair<Product, int>>& basket); // New function for editing basket
 
 #endif
