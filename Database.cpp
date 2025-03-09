@@ -93,6 +93,33 @@ void updateCouponUsage(int couponID, std::vector<Coupon>& coupons){
     }
 
     outFile.close();
-    std::cout << "Coupon " << couponID << " usage updated successfully.\n";
+    return;
 }
 
+
+void checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket) {
+    std::vector<Product> products = loadProductsFromFile();
+
+    for (const auto& item : basket) {
+        for (auto& product : products) {
+            if (product.getId() == item.first.getId()) {
+                product.removeStock(item.second);
+            }
+        }
+    }
+
+    std::ofstream outFile("products.txt");
+    if (!outFile) {
+        std::cerr << "Error: Unable to open file for writing." << std::endl;
+        return;
+    }
+    for (const auto& product : products) {
+        outFile << product.getId() << "," << product.getName() << ","
+            << product.getCategory() << "," << product.getPrice() << ","
+            << product.getStock() << "\n";
+    }
+
+    outFile.close();
+    return;
+
+}

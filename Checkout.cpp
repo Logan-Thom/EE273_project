@@ -119,6 +119,11 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     std::cout << "Ready to Purchase\n";
     pauseProgram();
 
+
+    checkoutUpdateStock(basket);
+
+
+
     // Save order details to file
     std::ofstream orderFile("orders.txt", std::ios::app);
     if (!orderFile) {
@@ -144,4 +149,5 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     // Clear the basket
     basket.clear();
     std::cout << "\nOrder placed successfully! Your basket has been cleared.\n";
+    return;
 }

@@ -18,3 +18,8 @@ std::string Product::getName() const { return name; }
 std::string Product::getCategory() const { return category; }
 double Product::getPrice() const { return price; }
 int Product::getStock() const { return stock; }
+
+//methods
+void Product::removeStock(int quantity) {
+    stock -= quantity;
+}
