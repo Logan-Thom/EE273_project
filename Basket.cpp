@@ -5,8 +5,6 @@
 #include <iostream>
 #include <limits>
 
-// Function prototypes
-void menuBasket(std::vector<std::pair<Product, int>>& basket);
 
 // Function to add a product with quantity to the basket
 void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products) {
@@ -20,7 +18,7 @@ void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector
             continue;
         }
         else if (input == "back") {
-            return;  // Properly exit the function instead of calling handleMenuSelection
+            return;  // Properly exit the function
         }
         else if (input == "checkout") {
             proceedToCheckout(basket);
@@ -39,6 +37,7 @@ void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector
         bool found = false;
         for (const auto& product : products) {
             if (productId == product.getId()) {
+                int stock = product.getStock(); // Ensure stock is available
                 int quantity;
                 std::cout << "Enter quantity: ";
                 std::cin >> quantity;
@@ -50,10 +49,14 @@ void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector
                     continue;
                 }
 
-                // Check if the product is already in the basket
+                // Check if product is already in basket
                 bool existsInBasket = false;
                 for (auto& item : basket) {
                     if (item.first.getId() == productId) {
+                        if (item.second + quantity > stock) {
+                            std::cout << "Quantity too high! Only more" << stock - item.second << " available.\n";
+                            continue;
+                        }
                         item.second += quantity;
                         std::cout << "Updated quantity of " << product.getName()
                             << " in basket to " << item.second << ".\n";
@@ -63,6 +66,10 @@ void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector
                 }
 
                 if (!existsInBasket) {
+                    if (quantity > stock) {
+                        std::cout << "Quantity too high! Only " << stock << " available.\n";
+                        continue;
+                    }
                     basket.push_back(std::make_pair(product, quantity));
                     std::cout << quantity << " x " << product.getName() << " added to basket!\n";
                 }
@@ -79,6 +86,7 @@ void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector
 }
 
 
+
 // Function to display the basket
 void viewBasket(std::vector<std::pair<Product, int>>& basket) {
     clearScreen();
@@ -89,10 +97,13 @@ void viewBasket(std::vector<std::pair<Product, int>>& basket) {
     }
     std::cout << "\n========================\n";
     std::cout << "\nYour Basket:\n";
+    double total = 0.0;
     for (const auto& item : basket) {
         std::cout << item.second << " x "; // Quantity
         item.first.displayProduct(); // Product details
+        total += item.first.getPrice()* item.second;
     }
+    std::cout << "\nTotal: "<< static_cast<char>(156) << total;
     std::cout << "\n---------------------------------\n";
 }
 

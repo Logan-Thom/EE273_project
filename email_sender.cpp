@@ -99,7 +99,7 @@ void send_order_emails(const std::string& customer_email,
             << "<td>$" << item.first.getPrice() * item.second << "</td></tr>";
     }
 
-    customer_body << "</table><p><strong>Total Cost: $" << totalCost << "</strong></p>"
+    customer_body << "</table><p><strong>Total Cost: £" << totalCost << "</strong></p>"
         << "<p>Thank you for shopping with us!</p></body></html>";
 
     send_email(customer_email, "Order Confirmation - Thank You!", customer_body.str());

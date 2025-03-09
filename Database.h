@@ -2,9 +2,10 @@
 #define DATABASE_H
 
 #include "Product.h"
+#include "Coupon.h"
 #include <vector>
 
-std::vector<Product> loadProductsFromFile(const std::string& filename);
-
+std::vector<Product> loadProductsFromFile();
+std::vector<Coupon> loadCouponsFromFile();
+void updateCouponUsage(int couponID, std::vector<Coupon>& coupons);
 #endif
-

@@ -51,7 +51,7 @@ void handleMenuSelection(std::vector<std::pair<Product, int>>& basket) {
         switch (choice) {
         case 1:
             std::cout << "Admin login not implemented yet.\n";
-            pauseProgram;
+            pauseProgram();
             break;
         case 2:
             browseProducts(basket); // Ensure this function fully exits before returning
@@ -73,7 +73,7 @@ void handleMenuSelection(std::vector<std::pair<Product, int>>& basket) {
 
 void browseProducts(std::vector<std::pair<Product, int>>& basket) {
     clearScreen();
-    std::vector<Product> products = loadProductsFromFile("products.txt");
+    std::vector<Product> products = loadProductsFromFile();
 
     if (products.empty()) {
         std::cout << "No products found.\n";
