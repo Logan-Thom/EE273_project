@@ -8,6 +8,8 @@ int getTotalBasketItems(const std::vector<std::pair<Product, int>>& basket);
 void displayMainMenu(const std::vector<std::pair<Product, int>>& basket);
 void handleMenuSelection(std::vector<std::pair<Product, int>>& basket);
 void browseProducts(std::vector<std::pair<Product, int>>& basket);
+void attemptLogin(void);
+
 
 #endif
 

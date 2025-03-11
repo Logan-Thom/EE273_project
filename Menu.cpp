@@ -2,6 +2,7 @@
 #include "Basket.h"
 #include "Database.h"
 #include "screen_utilities.h"
+#include "AdminLogin.h"
 #include "Product.h"
 #include <iostream>
 #include <vector>
@@ -50,8 +51,7 @@ void handleMenuSelection(std::vector<std::pair<Product, int>>& basket) {
 
         switch (choice) {
         case 1:
-            std::cout << "Admin login not implemented yet.\n";
-            pauseProgram();
+            attemptLogin();
             break;
         case 2:
             browseProducts(basket); // Ensure this function fully exits before returning
@@ -140,3 +140,39 @@ void browseProducts(std::vector<std::pair<Product, int>>& basket) {
 }
 
 
+void attemptLogin(){
+    //give user 3 attempts to get a correct login, store login details of admin in a class,
+    //uses operator overloading to check if login details are acceptable
+
+    //potential room for expansion by storing multiple allowed logins in a std::vector<AdminLogin>
+    //and looping through them
+    int attempts = 3;
+    AdminLogin correct_details("root","toor");
+    std::string username_try;
+    std::string password_try;
+
+    while (attempts != 0){
+        std::cout << "Username: ";
+        std::cin >> username_try;
+        std::cout << "\nPassword: ";
+        std::cin >> password_try;
+        AdminLogin checked_login(username_try,password_try);
+        if(checked_login == correct_details){
+            //call function to display admin menu
+
+            //uncertain about this being here, but should work
+            return;
+        } else {
+            std::cout << "Incorrect details. Please try again.\n";
+            attempts--;
+        }
+    }
+    std::cout << "Login attemps exceeded, redirecting...";
+    browseProducts(basket);
+}
+
+void displayAdminMenu(){
+    clearScreen();
+
+    //need to give list of admin options 
+}
