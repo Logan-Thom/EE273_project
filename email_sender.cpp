@@ -96,7 +96,7 @@ void send_order_emails(const std::string& customer_email,
     for (const auto& item : basket) {
         customer_body << "<tr><td>" << item.first.getName() << "</td>"
             << "<td>" << item.second << "</td>"
-            << "<td>$" << item.first.getPrice() * item.second << "</td></tr>";
+            << "<td>£" << item.first.getPrice() * item.second << "</td></tr>";
     }
 
     customer_body << "</table><p><strong>Total Cost: £" << totalCost << "</strong></p>"
@@ -109,7 +109,7 @@ void send_order_emails(const std::string& customer_email,
         << "<h2 style='color: #2C3E50;'>New Order Received</h2>"
         << "<p><strong>Timestamp:</strong> " << timestamp << "</p>"
         << "<p><strong>Payment Details:</strong></p>"
-        << "<p>Card: ****-****-****-" << maskedCardNumber << "</p>"
+        << "<p>Card: "<< maskedCardNumber << "</p>"
         << "<p>Expiry: " << expiryDate << "</p>"
         << "<h3>Order Details:</h3>"
         << "<table border='1' cellpadding='8' cellspacing='0' style='border-collapse: collapse; width: 100%;'>"
@@ -118,10 +118,10 @@ void send_order_emails(const std::string& customer_email,
     for (const auto& item : basket) {
         supplier_body << "<tr><td>" << item.first.getName() << "</td>"
             << "<td>" << item.second << "</td>"
-            << "<td>$" << item.first.getPrice() * item.second << "</td></tr>";
+            << "<td>£" << item.first.getPrice() * item.second << "</td></tr>";
     }
 
-    supplier_body << "</table><p><strong>Total Cost: $" << totalCost << "</strong></p>"
+    supplier_body << "</table><p><strong>Total Cost: £" << totalCost << "</strong></p>"
         << "<p>Please process the order as soon as possible.</p></body></html>";
 
     send_email(SUPPLIER_EMAIL, "New Order Received", supplier_body.str());

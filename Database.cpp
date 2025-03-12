@@ -37,7 +37,7 @@ std::vector<Product> loadProductsFromFile() {
 
 
 
-void addOrdertoDB(std::string timestamp, std::string cardNumber, std::string expiryDate, std::string email, int couponID, std::vector<std::pair<Product, int>>& basket) {
+void addOrdertoDB(std::string timestamp, std::string maskedCardNumber, std::string expiryDate, std::string email, int couponID, std::vector<std::pair<Product, int>>& basket) {
     // Save order details to file (ADD to DATAbase.cpp)
     std::ofstream orderFile("orders.txt", std::ios::app);
     if (!orderFile) {
@@ -47,7 +47,7 @@ void addOrdertoDB(std::string timestamp, std::string cardNumber, std::string exp
 
     
     orderFile << timestamp << ","
-        << "XXXX-XXXX-XXXX-" << cardNumber.substr(12, 4) << ","
+        << maskedCardNumber << ","
         << expiryDate << ","
         << email << ","
         << couponID << ",";
