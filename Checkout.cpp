@@ -129,7 +129,9 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     std::string timestamp = getCurrentTimestamp();
  
     addOrdertoDB(timestamp, cardNumber, expiryDate, email, couponID, basket);
-    send_order_emails(email, basket, timestamp, cardNumber, expiryDate, totalCost);
+    std::string maskedCardNumber = "XXXX-XXXX-XXXX-" + cardNumber.substr(12, 4);;
+
+    send_order_emails(email, basket, timestamp, maskedCardNumber, expiryDate, totalCost);
 
 
     // Clear the basket
