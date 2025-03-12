@@ -4,9 +4,9 @@
 4,Running Shoes,Clothing,372.08,32
 5,Power Bank,Electronics,478.27,144
 6,Monitor,Electronics,413.05,50
-7,Jeans,Clothing,1015.04,41
+7,Jeans,Clothing,1015.04,25
 8,Leather Belt,Clothing,1229.05,43
-9,Backpack,Clothing,266.67,15
+9,Backpack,Clothing,266.67,7
 10,Historical Fiction,Books,57.3,40
 11,Travel Guide,Books,323.51,185
 12,Mystery Thriller,Books,691.87,11
@@ -15,7 +15,7 @@
 15,Finance and Investing,Books,702.98,74
 16,Self-Help Guide,Books,1312.78,65
 17,Historical Fiction,Books,394.77,187
-18,Poetry Collection,Books,106.9,179
+18,Poetry Collection,Books,106.9,170
 19,E-Reader,Electronics,1382.83,32
 20,Hoodie,Clothing,1324.43,125
 21,Winter Boots,Clothing,1478.19,141
@@ -64,7 +64,7 @@
 64,Socks,Clothing,1044.43,189
 65,Hoodie,Clothing,396.31,199
 66,Finance and Investing,Books,1417.45,47
-67,Philosophy Book,Books,632.41,187
+67,Philosophy Book,Books,632.41,178
 68,T-Shirt,Clothing,471.52,12
 69,Leggings,Clothing,1168.31,106
 70,Fantasy Adventure,Books,859.06,81
@@ -95,6 +95,6 @@
 95,Travel Guide,Books,1322.48,72
 96,Smart TV,Electronics,347.17,40
 97,Poetry Collection,Books,1470.6,131
-98,Science Fiction Novel,Books,95.62,94
+98,Science Fiction Novel,Books,95.62,87
 99,Backpack,Clothing,613.82,28
 100,Hoodie,Clothing,699.07,16

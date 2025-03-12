@@ -20,10 +20,9 @@ std::string getCurrentTimestamp() {
 }
 
 
-//Coupon Prosses
-double getCouponDiscount() {
+
+std::pair<int, double> getCoupon() {
     char hasCoup;
-    
 
     // Ask the user if they have a coupon
     std::cout << "Do you have a coupon? (Enter Y for YES or N for NO): ";
@@ -35,23 +34,24 @@ double getCouponDiscount() {
         std::cin >> hasCoup;
     }
 
-    // If the user does not have a coupon, return 1
+    // If the user does not have a coupon, return {0, 1.0} (no discount)
     if (hasCoup == 'N' || hasCoup == 'n') {
-        return 1;
+        return { 0, 1.0 };
     }
 
     // If the user has a coupon, prompt for code
     std::string couponCode;
     std::vector<Coupon> coupons = loadCouponsFromFile();
+
     while (true) {
         std::cout << "Enter your coupon code: ";
         std::cin >> couponCode;
-        
+
         // Check if the coupon exists
         for (Coupon& coupon : coupons) {
             if (coupon.getCode() == couponCode && coupon.isActive() && coupon.getUsed() < coupon.getMaxUses()) {
                 updateCouponUsage(coupon.getCouponID(), coupons);
-                return coupon.getDiscountPercentage();
+                return { coupon.getCouponID(), coupon.getDiscountPercentage() };
             }
         }
 
@@ -61,10 +61,11 @@ double getCouponDiscount() {
         std::cin >> retry;
 
         if (retry == 'N' || retry == 'n') {
-            return 1;
+            return { 0, 1.0 };  // Return default values (no discount)
         }
     }
 }
+
 
 
 // Function to handle checkout
@@ -109,8 +110,11 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     
 
     
-    double couponDiscount = getCouponDiscount();
+    std::pair<int, double> couponData = getCoupon();
+    int couponID = couponData.first;
+    double couponDiscount = couponData.second;
     
+
     
     totalCost *=couponDiscount;
     std::cout << "Final Cost: "<< totalCost;
@@ -122,27 +126,9 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
 
     checkoutUpdateStock(basket);
 
-
-
-    // Save order details to file
-    std::ofstream orderFile("orders.txt", std::ios::app);
-    if (!orderFile) {
-        std::cerr << "Error: Could not open orders.txt to save the order.\n";
-        return;
-    }
-
     std::string timestamp = getCurrentTimestamp();
-    orderFile << timestamp << ","
-        << "XXXX-XXXX-XXXX-" << cardNumber.substr(12, 4) << ","
-        << expiryDate << ",";
-
-    for (const auto& item : basket) {
-        orderFile << item.first.getName() << "," << item.second << "," << item.first.getPrice() << ",";
-    }
-
-    orderFile << totalCost << "\n"; // Save total cost at the end
-
-    orderFile.close();
+ 
+    addOrdertoDB(timestamp, cardNumber, expiryDate, email, couponID, basket);
     send_order_emails(email, basket, timestamp, cardNumber, expiryDate, totalCost);
 
 

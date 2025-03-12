@@ -7,6 +7,6 @@
 #include "Basket.h"
 
 void proceedToCheckout(std::vector<std::pair<Product, int>>& basket);
-double getCouponDiscount();
+std::pair<int, double> getCoupon();
 #endif
 #pragma once

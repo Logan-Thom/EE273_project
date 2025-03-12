@@ -34,6 +34,35 @@ std::vector<Product> loadProductsFromFile() {
     file.close();
     return productList;
 }
+
+
+
+void addOrdertoDB(std::string timestamp, std::string cardNumber, std::string expiryDate, std::string email, int couponID, std::vector<std::pair<Product, int>>& basket) {
+    // Save order details to file (ADD to DATAbase.cpp)
+    std::ofstream orderFile("orders.txt", std::ios::app);
+    if (!orderFile) {
+        std::cerr << "Error: Could not open orders.txt to save the order.\n";
+        return;
+    }
+
+    
+    orderFile << timestamp << ","
+        << "XXXX-XXXX-XXXX-" << cardNumber.substr(12, 4) << ","
+        << expiryDate << ","
+        << email << ","
+        << couponID << ",";
+
+    for (const auto& item : basket) {
+        orderFile << item.first.getId() << "," << item.second << ",";
+    }
+
+    orderFile <<0<< "\n";
+
+    orderFile.close();
+    return;
+}
+
+
 // =================== COUPON MANAGEMENT ===================
 
 // Load all coupons from file
