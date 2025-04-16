@@ -39,10 +39,7 @@
     <ClInclude Include="Coupon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AdminControlls.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AdminLogin.h">
+    <ClInclude Include="Service.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,10 +71,7 @@
     <ClCompile Include="Coupons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AdminControlls.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AdminLogin.cpp">
+    <ClCompile Include="Service.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,5 +79,6 @@
     <Text Include="products.txt" />
     <Text Include="orders.txt" />
     <Text Include="coupons.txt" />
+    <Text Include="services.txt" />
   </ItemGroup>
 </Project>

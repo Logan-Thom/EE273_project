@@ -6,7 +6,7 @@
 #include <utility> // For std::pair
 #include "Basket.h"
 
-void proceedToCheckout(std::vector<std::pair<Product, int>>& basket);
+void proceedToCheckout(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket);
 std::pair<int, double> getCoupon();
 #endif
 #pragma once

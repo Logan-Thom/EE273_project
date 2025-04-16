@@ -131,8 +131,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AdminControlls.h" />
-    <ClInclude Include="AdminLogin.h" />
     <ClInclude Include="Basket.h" />
     <ClInclude Include="checkout.h" />
     <ClInclude Include="Coupon.h" />
@@ -141,10 +139,9 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="screen_utilities.h" />
+    <ClInclude Include="Service.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AdminControlls.cpp" />
-    <ClCompile Include="AdminLogin.cpp" />
     <ClCompile Include="Checkout.cpp" />
     <ClCompile Include="Coupons.cpp" />
     <ClCompile Include="Database.cpp" />
@@ -154,11 +151,13 @@
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="screen_utilities.cpp" />
+    <ClCompile Include="Service.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="coupons.txt" />
     <Text Include="orders.txt" />
     <Text Include="products.txt" />
+    <Text Include="services.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

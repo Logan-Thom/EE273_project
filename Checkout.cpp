@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include <memory>   // Required for std::shared_ptr
 #include <limits>
 
 // Function to generate current timestamp
@@ -69,7 +70,7 @@ std::pair<int, double> getCoupon() {
 
 
 // Function to handle checkout
-void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
+void proceedToCheckout(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
     clearScreen();
     if (basket.empty()) {
         std::cout << "\nYour basket is empty. Add products before checking out.\n\n";
@@ -102,8 +103,8 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     double totalCost = 0.0;
     for (const auto& item : basket) {
         std::cout << item.second << " x "; // Quantity
-        item.first.displayProduct(); // Product details
-        totalCost += item.first.getPrice() * item.second;
+        item.first->displayProduct(); // Product details
+        totalCost += item.first->getPrice() * item.second;
     }
     std::cout << "\nTotal: " << static_cast<char>(156) << totalCost;
     std::cout << "\n---------------------------------\n";
@@ -137,5 +138,6 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     // Clear the basket
     basket.clear();
     std::cout << "\nOrder placed successfully! Your basket has been cleared.\n";
+    pauseProgram();
     return;
 }

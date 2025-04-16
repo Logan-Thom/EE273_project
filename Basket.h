@@ -3,10 +3,15 @@
 
 #include "Product.h"
 #include <vector>
-#include <utility> // For std::pair
+#include <memory>   // For std::shared_ptr
+#include <utility>  // For std::pair
 
-void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products);
-void viewBasket(const std::vector<std::pair<Product, int>>& basket);
-void menuBasket(std::vector<std::pair<Product, int>>& basket); // New function for editing basket
+void addToBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket,
+    const std::vector<std::shared_ptr<Product>>& products,
+    const std::string& mode);
+
+void viewBasket(const std::vector<std::pair<std::shared_ptr<Product>, int>>& basket);
+
+void menuBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket);
 
 #endif

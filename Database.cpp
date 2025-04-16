@@ -3,49 +3,74 @@
 #include <sstream>
 #include <iostream>
 
-std::vector<Product> loadProductsFromFile() {
-    std::vector<Product> productList;
+std::vector<std::shared_ptr<Product>> loadProductsFromFile() {
+    std::vector<std::shared_ptr<Product>> productList;
     std::ifstream file("products.txt");
 
     if (!file) {
-        std::cerr << "Error: Could not open file " << "products.txt" << std::endl;
+        std::cerr << "Error: Could not open file products.txt" << std::endl;
         return productList;
     }
 
     std::string line;
     while (std::getline(file, line)) {
         std::stringstream ss(line);
-        std::string idStr, name, category, priceStr, stockStr;
+        std::string id, name, category, priceStr, stockStr;
 
-        // Read comma-separated values
-        if (std::getline(ss, idStr, ',') &&
+        if (std::getline(ss, id, ',') &&
             std::getline(ss, name, ',') &&
             std::getline(ss, category, ',') &&
             std::getline(ss, priceStr, ',') &&
             std::getline(ss, stockStr, ',')) {
-            int id = std::stoi(idStr);
             double price = std::stod(priceStr);
             int stock = std::stoi(stockStr);
 
-            productList.emplace_back(id, name, category, price, stock);
+            productList.push_back(std::make_shared<Product>(id, name, category, price, stock));
         }
     }
 
-    file.close();
     return productList;
 }
 
 
 
-void addOrdertoDB(std::string timestamp, std::string maskedCardNumber, std::string expiryDate, std::string email, int couponID, std::vector<std::pair<Product, int>>& basket) {
-    // Save order details to file (ADD to DATAbase.cpp)
+std::vector<std::shared_ptr<Product>> loadServicesFromFile() {
+    std::vector<std::shared_ptr<Product>> serviceList;
+    std::ifstream file("services.txt");
+
+    if (!file) {
+        std::cerr << "Error: Could not open services.txt" << std::endl;
+        return serviceList;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string id, name, category, priceStr;
+
+        if (std::getline(ss, id, ',') &&
+            std::getline(ss, name, ',') &&
+            std::getline(ss, category, ',') &&
+            std::getline(ss, priceStr, ',')) {
+
+            double price = std::stod(priceStr);
+            serviceList.push_back(std::make_shared<Service>(id, name, category, price));
+        }
+    }
+
+    return serviceList;
+}
+
+
+
+
+void addOrdertoDB(std::string timestamp, std::string maskedCardNumber, std::string expiryDate, std::string email, int couponID, const std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
     std::ofstream orderFile("orders.txt", std::ios::app);
     if (!orderFile) {
         std::cerr << "Error: Could not open orders.txt to save the order.\n";
         return;
     }
 
-    
     orderFile << timestamp << ","
         << maskedCardNumber << ","
         << expiryDate << ","
@@ -53,14 +78,12 @@ void addOrdertoDB(std::string timestamp, std::string maskedCardNumber, std::stri
         << couponID << ",";
 
     for (const auto& item : basket) {
-        orderFile << item.first.getId() << "," << item.second << ",";
+        orderFile << item.first->getId() << "," << item.second << ",";
     }
 
-    orderFile <<0<< "\n";
-
-    orderFile.close();
-    return;
+    orderFile << 0 << "\n";
 }
+
 
 
 // =================== COUPON MANAGEMENT ===================
@@ -126,13 +149,13 @@ void updateCouponUsage(int couponID, std::vector<Coupon>& coupons){
 }
 
 
-void checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket) {
-    std::vector<Product> products = loadProductsFromFile();
+void checkoutUpdateStock(const std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
+    std::vector<std::shared_ptr<Product>> products = loadProductsFromFile();
 
     for (const auto& item : basket) {
         for (auto& product : products) {
-            if (product.getId() == item.first.getId()) {
-                product.removeStock(item.second);
+            if (product->getId() == item.first->getId()) {
+                product->removeStock(item.second);
             }
         }
     }
@@ -142,13 +165,11 @@ void checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket) {
         std::cerr << "Error: Unable to open file for writing." << std::endl;
         return;
     }
+
     for (const auto& product : products) {
-        outFile << product.getId() << "," << product.getName() << ","
-            << product.getCategory() << "," << product.getPrice() << ","
-            << product.getStock() << "\n";
+        outFile << product->getId() << "," << product->getName() << ","
+            << product->getCategory() << "," << product->getPrice() << ","
+            << product->getStock() << "\n";
     }
-
-    outFile.close();
-    return;
-
 }
+

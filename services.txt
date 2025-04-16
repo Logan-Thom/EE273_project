@@ -1,0 +1,100 @@
+S1,Haircut,Salon,25.00
+S2,Beard Trim,Salon,15.00
+S3,Hair Coloring,Salon,70.00
+S4,Hair Styling,Salon,35.00
+S5,Blow Dry,Salon,28.00
+S6,Shampoo and Condition,Salon,18.00
+S7,Kids Haircut,Salon,20.00
+S8,Senior Haircut,Salon,22.00
+S9,Fringe Trim,Salon,10.00
+S10,Hair Consultation,Salon,30.00
+S11,Full Body Massage,Spa,80.00
+S12,Facial Treatment,Spa,60.00
+S13,Hot Stone Massage,Spa,90.00
+S14,Aromatherapy Massage,Spa,85.00
+S15,Back Massage,Spa,45.00
+S16,Scalp Massage,Spa,35.00
+S17,Hand Treatment,Spa,30.00
+S18,Body Scrub,Spa,50.00
+S19,Steam Facial,Spa,55.00
+S20,Relaxation Therapy,Spa,75.00
+S21,Fitness Assessment,Fitness,30.00
+S22,Yoga Class,Fitness,20.00
+S23,Personal Training,Fitness,45.00
+S24,Circuit Training,Fitness,25.00
+S25,Zumba Class,Fitness,22.00
+S26,Pilates Class,Fitness,27.00
+S27,Strength Coaching,Fitness,40.00
+S28,Cardio Coaching,Fitness,35.00
+S29,Stretching Session,Fitness,18.00
+S30,Fitness Plan Review,Fitness,38.00
+S31,Makeup Application,Beauty,50.00
+S32,Pedicure,Beauty,35.00
+S33,Manicure,Beauty,30.00
+S34,Eyebrow Threading,Beauty,15.00
+S35,Eyelash Tint,Beauty,25.00
+S36,Brow Wax,Beauty,20.00
+S37,Full Face Wax,Beauty,45.00
+S38,Nail Art Design,Beauty,40.00
+S39,Makeup Lesson,Beauty,55.00
+S40,Lash Lift,Beauty,42.00
+S41,Nutrition Consultation,Health,55.00
+S42,Blood Pressure Check,Health,15.00
+S43,Cholesterol Check,Health,20.00
+S44,Body Composition Analysis,Health,25.00
+S45,Diabetes Screening,Health,30.00
+S46,Health Coaching,Health,50.00
+S47,Allergy Test,Health,60.00
+S48,Flu Shot,Health,10.00
+S49,Wellness Screening,Health,35.00
+S50,Immunization Review,Health,28.00
+S51,Swimming Lesson,Sports,25.00
+S52,Tennis Coaching,Sports,40.00
+S53,Basketball Training,Sports,35.00
+S54,Soccer Drills,Sports,32.00
+S55,Skating Lessons,Sports,38.00
+S56,Running Workshop,Sports,20.00
+S57,Gymnastics Coaching,Sports,45.00
+S58,Boxing Class,Sports,30.00
+S59,Table Tennis Training,Sports,28.00
+S60,Sports Nutrition Advice,Sports,33.00
+S61,Acupuncture,Wellness,65.00
+S62,Reiki Healing,Wellness,55.00
+S63,Meditation Class,Wellness,20.00
+S64,Breathwork Session,Wellness,25.00
+S65,Crystal Therapy,Wellness,45.00
+S66,Sleep Coaching,Wellness,50.00
+S67,Wellness Retreat Planning,Wellness,75.00
+S68,Holistic Coaching,Wellness,60.00
+S69,Mindfulness Coaching,Wellness,40.00
+S70,Energy Balancing,Wellness,35.00
+S71,Therapy Session,Mental Health,90.00
+S72,Counseling Session,Mental Health,85.00
+S73,Anger Management,Mental Health,70.00
+S74,Stress Management,Mental Health,65.00
+S75,Depression Therapy,Mental Health,95.00
+S76,Anxiety Therapy,Mental Health,95.00
+S77,Grief Counseling,Mental Health,80.00
+S78,Life Coaching,Mental Health,100.00
+S79,Cognitive Therapy,Mental Health,88.00
+S80,Addiction Counseling,Mental Health,92.00
+S81,Dental Cleaning,Dental,75.00
+S82,Whitening Treatment,Dental,85.00
+S83,Dental Exam,Dental,60.00
+S84,Braces Consultation,Dental,50.00
+S85,Tooth Extraction,Dental,95.00
+S86,Filling Repair,Dental,70.00
+S87,Dental X-Ray,Dental,45.00
+S88,Gum Health Check,Dental,55.00
+S89,Oral Hygiene Lesson,Dental,40.00
+S90,Retainer Fitting,Dental,65.00
+S91,Tutoring Session,Education,40.00
+S92,Coding Bootcamp,Education,200.00
+S93,Essay Writing Help,Education,35.00
+S94,Maths Coaching,Education,45.00
+S95,Science Workshop,Education,50.00
+S96,Exam Prep Session,Education,30.00
+S97,Study Skills Workshop,Education,25.00
+S98,Reading Comprehension,Education,28.00
+S99,Physics Problem Solving,Education,42.00
+S100,CV Writing Workshop,Education,38.00
