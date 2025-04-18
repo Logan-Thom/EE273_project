@@ -44,7 +44,9 @@ AdminControlls::menuOptionSelect(){
                 this.manageInventory();
                 break;
             case 3:
-                this.viewOrderHistory();
+                std::cout << "Don't do this yet" << std::endl;
+                //this.viewOrderHistory();
+                break;
             case 4:
                 this.returnToMainMenu();
                 break;
