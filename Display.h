@@ -13,8 +13,10 @@ class Display {
     int num_of_options;
 
     public:
+    void RefreshScreen(void);
     void ClearScreen(void);
     void PauseProgram(void);
+    void DisplayHeader(void);
     //void DisplayHeader(void);
 }
 

@@ -46,7 +46,7 @@ void handleMenuSelection(std::vector<std::pair<Product, int>>& basket) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Invalid input. Please enter a number.\n";
-            continue;
+            continue; //don't know if this is needed at all
         }
 
         switch (choice) {
@@ -159,7 +159,7 @@ void attemptLogin(){
         AdminLogin checked_login(username_try,password_try);
         if(checked_login == correct_details){
             //call function to display admin menu
-
+            AdminControlls adminMenu.menuOptionSelect();
             //uncertain about this being here, but should work
             return;
         } else {
@@ -172,7 +172,5 @@ void attemptLogin(){
 }
 
 void displayAdminMenu(){
-    clearScreen();
-
-    //need to give list of admin options 
+    
 }
