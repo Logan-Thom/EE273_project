@@ -125,7 +125,7 @@ AdminControlls::viewOrderHistory(){
     int countOfCommas = 0;
     int numberOfItemsBought = 1;
     this.orderInformation orderStruct;
-    int num_of_or/ders = 1;
+    int num_of_orders = 1;
     while(getline (ordersFile, fileLine)){
         //take each line, delimit by ',', count occurrences of this character
         //use to determine how many items bought, hard coded number sadly but constant
