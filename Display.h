@@ -17,10 +17,6 @@ class Display {
     void ClearScreen(void);
     void PauseProgram(void);
     void DisplayHeader(void);
-    //void DisplayHeader(void);
-}
-
-
-
+};
 
 #endif
