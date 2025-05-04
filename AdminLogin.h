@@ -14,5 +14,7 @@ class AdminLogin {
     bool AdminLogin::operator== (AdminLogin login_attempt);
     ~AdminLogin();
 };
+ 
+
 
 #endif

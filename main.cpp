@@ -1,13 +1,9 @@
-#include "Menu.h"
-#include <vector>
+#include "ECommerce.h"
 
 int main() {
-    std::vector<std::pair<Product, int>> basket;
 
-    while (true) {
-        handleMenuSelection(basket);
-        break;  // **Break out of the loop when user exits**
-    }
+
+    ECommerce ecommerce;
 
     return 0;
 }

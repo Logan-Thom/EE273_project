@@ -1,12 +1,13 @@
 #include "AdminControlls.h"
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <fstream>
 #include <Vector>
 
 
-AdminControlls::displayAdminMenu(){
-    this.RefreshScreen(); //inherited method from Display class
+void AdminControlls::displayAdminMenu(){
+    this->RefreshScreen(); //inherited method from Display class
     
     std::cout << "1. View Inventory" << std::endl;
     std::cout << "2. Manage Inventory" << std::endl;
@@ -17,11 +18,11 @@ AdminControlls::displayAdminMenu(){
 
 //may be able to use this as inheritted with menu, operator overloaded 
 //to select the correct one, talk to Jamie about it
-AdminControlls::menuOptionSelect(){
+void AdminControlls::menuOptionSelect(){
 
 
-    while(this.running){
-        this.displayAdminMenu();
+    while(this->running){
+        this->displayAdminMenu();
 
         //this can also be inheritted
         int choice;
@@ -39,21 +40,21 @@ AdminControlls::menuOptionSelect(){
 
         switch(choice){
             case 1:
-                this.viewInventory();
+                this->viewInventory();
                 break;
             case 2:
-                this.manageInventory();
+                this->manageInventory();
                 break;
             case 3:
                 std::cout << "Don't do this yet" << std::endl;
                 //this.viewOrderHistory();
                 break;
             case 4:
-                this.returnToMainMenu();
+                this->returnToMainMenu();
                 break;
             default:
                 std::cout << "Unknown option, returning to main menu..." << std::endl;
-                this.returnToMainMenu();
+                this->returnToMainMenu();
                 break; //probably don't need to break on default
         }
     }
@@ -61,8 +62,8 @@ AdminControlls::menuOptionSelect(){
 
 //general idea is to show each item and how many there are in stock,
 //could be expanded to do so much more but keep simple for now
-AdminControlls::viewInventory(){
-    this.RefreshScreen();
+void AdminControlls::viewInventory(){
+    this->RefreshScreen();
     //file handle for read
     std::string filepath = "products.txt";
     std::ifstream productFile(filepath);
@@ -94,10 +95,10 @@ AdminControlls::viewInventory(){
             }
 
             //store in vector incase of re-use
-            this.vector_of_products.push_back(current_product);
+            this->vector_of_products.push_back(current_product);
 
             //display for user
-            std::cout << current_product.id << " " << current_product.product_name << " has " << current_product.stock << " unit(s) remaining." << endl;
+            std::cout << current_product.id << " " << current_product.product_name << " has " << current_product.stock << " unit(s) remaining." << std::endl;
         }
         std::cout << "========================\n";
 
@@ -115,7 +116,7 @@ AdminControlls::viewInventory(){
 **************************************************************************
 **************************************************************************
 */
-AdminControlls::viewOrderHistory(){
+void AdminControlls::viewOrderHistory(){
     //god knows what the namespaces are meant to be here
     std::string filepath = "orders.txt";
     std::ifstream ordersFile(filepath);
@@ -124,7 +125,7 @@ AdminControlls::viewOrderHistory(){
 
     int countOfCommas = 0;
     int numberOfItemsBought = 1;
-    this.orderInformation orderStruct;
+    this->orderStruct;
     int num_of_orders = 1;
     while(getline (ordersFile, fileLine)){
         //take each line, delimit by ',', count occurrences of this character
@@ -143,7 +144,7 @@ AdminControlls::viewOrderHistory(){
 
         //default count is 6 for a 1 item purchase, increasing items by 1 increases commas by 2, will always be even
         //use this to find item count
-        numberOfItemsBought = ((countOfCommas - 4) >> 1) //bit shift because faster, I'm used to MCU programming in C this is NOT AI this is just how my brain works
+        numberOfItemsBought = ((countOfCommas - 4) >> 1); //bit shift because faster, I'm used to MCU programming in C this is NOT AI this is just how my brain works
 
 
         //would be nice to have a (ascii please) graph of total money each day for last month?
@@ -176,7 +177,7 @@ AdminControlls::viewOrderHistory(){
         */
 
 
-        num_of_orders++;
+        //num_of_orders++;
     }
 
     ordersFile.close();
@@ -185,14 +186,14 @@ AdminControlls::viewOrderHistory(){
 //currently need to run viewInventory first, which is stupid, need to put things into constructors
 //and do background init tasks because the code here is dreadfully bad
 //hell, this whole class needs re-written
-AdminControlls::manageInventory(){
+void AdminControlls::manageInventory(){
     //view so you can actually see what is being editted, 
     //need a new condensed method to call a refreshing version of this
     bool stay_on_screen = true;
     while(stay_on_screen){
         //should refresh inventory view each time
         //need to edit the file too
-        this.viewInventory();
+        this->viewInventory();
 
 
         //need input validation here
@@ -205,8 +206,8 @@ AdminControlls::manageInventory(){
 
         //this may not work, need to check reference
         if(ID_for_restock != -1){
-            this.vector_of_products[ID_for_restock - 1].stock += num_to_restock;
-            this.editProductFile(); //hate it so much, WILL be changing
+            this->vector_of_products[ID_for_restock - 1].stock += num_to_restock;
+            this->editProductFile(); //hate it so much, WILL be changing
         } else {
             stay_on_screen = false;
         }
@@ -214,7 +215,7 @@ AdminControlls::manageInventory(){
 }
 
 //this could maybe be a virtual/overriden function, look into it, at the least it can inherrit
-AdminControlls::editProductFile(){
+void AdminControlls::editProductFile(){
     //open file for write, and write contents of vector to it.
     //this wouldn't need to exist if previous files were better
     std::ofstream productFile("products.txt");
@@ -226,6 +227,6 @@ AdminControlls::editProductFile(){
     productFile.close();
 }
 
-AdminControlls::returnToMainMenu(){
-    this.running = false;
+void AdminControlls::returnToMainMenu(){
+    this->running = false;
 }

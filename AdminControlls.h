@@ -1,4 +1,10 @@
+
+
 #pragma once
+#include "Display.h"
+#include <string>
+#include <vector>
+#include "Product.h"
 
 class AdminControlls : public Display {
     private:
@@ -8,7 +14,7 @@ class AdminControlls : public Display {
         std::string product_name;
         float price;
         int stock;
-    }
+    };
 
     struct orderInformation{
         int items_bought; //may be able to use this to combine orders within the vector
@@ -20,15 +26,16 @@ class AdminControlls : public Display {
         int quantity;
         float unit_cost;
         float total_payment
-    }
+    };
 
     std::Vector<productInformation> vector_of_products;
+    
     bool running;
 
 
     public:
     AdminControlls(){
-        this.running = true;
+        this->running = true;
     }
     void displayAdminMenu();
     void menuOptionSelect();
