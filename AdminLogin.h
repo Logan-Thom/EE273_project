@@ -11,7 +11,7 @@ class AdminLogin {
     public:
     AdminLogin(void);
     AdminLogin(std::string username, std::string password);
-    bool AdminLogin::operator== (AdminLogin login_attempt);
+    bool AttemptLogin(AdminLogin login_attempt);
     ~AdminLogin();
 };
  

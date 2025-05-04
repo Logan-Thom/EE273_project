@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Order.h"
+#include "AdminControlls.h"
 #include "Product.h"
 #include "Coupon.h"
 #include "Basket.h"
@@ -8,10 +8,11 @@
 
 class ECommerce {
     private:
-        Order order;
+
     
         std::vector<Product> products;
         std::vector<Coupon> coupons;
+        AdminControlls adminControlls{products};
 
     public:
         std::vector<std::pair<Product, int>> basket;
@@ -23,3 +24,5 @@ class ECommerce {
         std::vector<Coupon> LoadCouponsFromFile();
 
 };
+
+

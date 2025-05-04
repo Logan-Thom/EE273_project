@@ -62,6 +62,7 @@ void AdminControlls::menuOptionSelect(){
 
 //general idea is to show each item and how many there are in stock,
 //could be expanded to do so much more but keep simple for now
+/*
 void AdminControlls::viewInventory(){
     this->RefreshScreen();
     //file handle for read
@@ -95,7 +96,7 @@ void AdminControlls::viewInventory(){
             }
 
             //store in vector incase of re-use
-            this->vector_of_products.push_back(current_product);
+            products.push_back(current_product);
 
             //display for user
             std::cout << current_product.id << " " << current_product.product_name << " has " << current_product.stock << " unit(s) remaining." << std::endl;
@@ -103,84 +104,16 @@ void AdminControlls::viewInventory(){
         std::cout << "========================\n";
 
 }
-
-//potentially want to be able to sort this?
-//this doesn't work currently, was having a 
-/*
-**************************************************************************
-**************************************************************************
-                    NOTE FOR JAMIE
-                    This doesn't work, I was checking over it
-                    and hated it so much I had to delete, will
-                    do ASAP, so many ideas here\
-**************************************************************************
-**************************************************************************
 */
+
+
+//lord help me
+void AdminControlls::viewInventory(){
+    //take the products
+}
+
 void AdminControlls::viewOrderHistory(){
-    //god knows what the namespaces are meant to be here
-    std::string filepath = "orders.txt";
-    std::ifstream ordersFile(filepath);
-
-    std::string fileLine;
-
-    int countOfCommas = 0;
-    int numberOfItemsBought = 1;
-    this->orderStruct;
-    int num_of_orders = 1;
-    while(getline (ordersFile, fileLine)){
-        //take each line, delimit by ',', count occurrences of this character
-        //use to determine how many items bought, hard coded number sadly but constant
-        //put information (and convert types where appropriate) into struct
-        //put struct into vector or list, test which is better
-
-        //this is messy, and that makes me sad
-        // TW: nested loops
-        countOfCommas = 0;
-        for(int i=0; i<fileLine.size(); i++){
-            if(fileLine[i] == ','){
-                countOfCommas++;
-            }
-        }
-
-        //default count is 6 for a 1 item purchase, increasing items by 1 increases commas by 2, will always be even
-        //use this to find item count
-        numberOfItemsBought = ((countOfCommas - 4) >> 1); //bit shift because faster, I'm used to MCU programming in C this is NOT AI this is just how my brain works
-
-
-        //would be nice to have a (ascii please) graph of total money each day for last month?
-        //view by month?
-        //menu to sort all those options?
-        //hell yeah, do that here
-
-
-
-        /*
-        The idea here is to put it all into a vector for sorting potential, doing later I guess?
-        why do I never comment when I'm writing code this is idiotic
-
-        int items_bought; 
-        std::string date;
-        std::string time;
-        int card_identifier;
-        std::string item;
-        int quantity;
-        float unit_cost;
-        float total_payment
-        
-        orderStruct.items_bought = numberOfItemsBought;
-        orderStruct.date = fileLine.substr(0,10);
-        orderStruct.time = fileLine.substr(11,8);
-        orderStruct.card_identifier = stoi(fileLine.substr(35,4));
-        
-        //this needs to be 'lambda'ed. smiles all around
-        //come back later
-        */
-
-
-        //num_of_orders++;
-    }
-
-    ordersFile.close();
+   //call the orders class here
 }
 
 //currently need to run viewInventory first, which is stupid, need to put things into constructors
@@ -206,7 +139,7 @@ void AdminControlls::manageInventory(){
 
         //this may not work, need to check reference
         if(ID_for_restock != -1){
-            this->vector_of_products[ID_for_restock - 1].stock += num_to_restock;
+            products_vec[ID_for_restock - 1].addStock(num_to_restock);
             this->editProductFile(); //hate it so much, WILL be changing
         } else {
             stay_on_screen = false;
@@ -220,8 +153,8 @@ void AdminControlls::editProductFile(){
     //this wouldn't need to exist if previous files were better
     std::ofstream productFile("products.txt");
 
-    for(int i=0; i<vector_of_products.size();i++){
-        productFile << vector_of_products[i].id << "," << vector_of_products[i].product_name << "," << vector_of_products[i].price << "," << vector_of_products[i].stock;
+    for(int i=0; i<products_vec.size();i++){
+        productFile << products_vec[i].getId() << "," << products_vec[i].getName() << "," << products_vec[i].getPrice() << "," << products_vec[i].getStock();
     }
 
     productFile.close();

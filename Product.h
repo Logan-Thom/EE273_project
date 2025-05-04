@@ -16,12 +16,14 @@ public:
     // Display product details
     void displayProduct() const;
     void removeStock(int quantity);
+    void addStock(int quantity);
     // Getters
     int getId() const; 
     std::string getName() const;
     std::string getCategory() const;
     double getPrice() const;
     int getStock() const;
+    
     //methods
     
 };

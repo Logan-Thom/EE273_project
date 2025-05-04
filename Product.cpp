@@ -12,6 +12,10 @@ void Product::displayProduct() const {
 
 }
 
+void Product::addStock(int quantity){
+    this->stock += quantity;
+}
+
 // Getter functions
 int Product::getId() const { return id; }
 std::string Product::getName() const { return name; }

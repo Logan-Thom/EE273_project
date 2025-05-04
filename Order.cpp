@@ -170,7 +170,7 @@ void Order::TransactionHistoryView(){
     Display::PauseProgram();
 }
 
-vector<orderInformation> Order::GetOrderVec(){
+vector<Order::orderInformation> Order::GetOrderVec(){
     return this->order_vec;
 }
 

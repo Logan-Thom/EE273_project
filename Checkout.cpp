@@ -1,6 +1,6 @@
 ﻿#include "Checkout.h"
 #include "Database.h"
-#include "email_sender.h"
+//#include "email_sender.h"
 #include "menu.h"
 #include "screen_utilities.h"
 #include <iostream>
@@ -143,7 +143,7 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     orderFile << totalCost << "\n"; // Save total cost at the end
 
     orderFile.close();
-    send_order_emails(email, basket, timestamp, cardNumber, expiryDate, totalCost);
+    //send_order_emails(email, basket, timestamp, cardNumber, expiryDate, totalCost);
 
 
     // Clear the basket

@@ -1,4 +1,7 @@
-﻿#include "email_sender.h"
+﻿
+#include "email_sender.h"
+
+/*
 #include <iostream>
 #include <sstream>
 
@@ -126,3 +129,4 @@ void send_order_emails(const std::string& customer_email,
 
     send_email(SUPPLIER_EMAIL, "New Order Received", supplier_body.str());
 }
+*/

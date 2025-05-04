@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "Product.h"
+#include "Order.h"
 
 class AdminControlls : public Display {
     private:
@@ -25,17 +26,23 @@ class AdminControlls : public Display {
         std::string item;
         int quantity;
         float unit_cost;
-        float total_payment
+        float total_payment;
     };
 
-    std::Vector<productInformation> vector_of_products;
+
+
+    std::vector<productInformation> vector_of_products;
     
     bool running;
 
+    public:
+        Order order;
+        std::vector<Product> products_vec;
 
     public:
-    AdminControlls(){
+    AdminControlls(std::vector<Product>& prod){
         this->running = true;
+        this->products_vec = prod;
     }
     void displayAdminMenu();
     void menuOptionSelect();
@@ -45,4 +52,4 @@ class AdminControlls : public Display {
     void editProductFile();
     void returnToMainMenu();
 
-}
+};
