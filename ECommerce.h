@@ -3,11 +3,16 @@
 #include "AdminControlls.h"
 #include "Product.h"
 #include "Coupon.h"
+#include "Checkout.h"
 #include "Basket.h"
 #include "Database.h"
 #include "Display.h"
 #include <vector>
 #include <utility> // For std::pair
+
+class Basket;
+class Checkout;
+
 
 class ECommerce : public Display {
     private:
@@ -18,8 +23,9 @@ class ECommerce : public Display {
         AdminControlls adminControlls{products};
 
     public:
-        Basket basket_utils;
-        Database database_utils;
+        Basket* basket_utils;
+        Database* database_utils; //these need to be pointers because of circular and forward declarations (ECommerce uses Database, database uses reference of Ecommerce)
+        Checkout* checkout_utils;
         std::vector<std::pair<Product, int>> basket;
 
     public:
@@ -27,7 +33,9 @@ class ECommerce : public Display {
         ~ECommerce();
         void LoadProducts(void);
         void LoadCoupons(void);
+        //getters
         AdminControlls GetAdminControlls(void);
+        std::vector<Coupon> GetCoupons(void);
         //menu related
         int getTotalBasketItems(const std::vector<std::pair<Product, int>>& basket);
         void displayMainMenu(const std::vector<std::pair<Product, int>>& basket);

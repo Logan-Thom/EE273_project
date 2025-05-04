@@ -21,7 +21,7 @@ void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, in
             return;  // Properly exit the function
         }
         else if (input == "checkout") {
-            proceedToCheckout(basket);
+            ecommerce.checkout_utils->proceedToCheckout(ecommerce,basket);
             return;
         }
 
@@ -191,7 +191,7 @@ void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int
             return;  // **Ensure function exits properly**
 
         case 5: // Checkout
-            proceedToCheckout(basket);
+            ecommerce.checkout_utils->proceedToCheckout(ecommerce,basket);
             return;  // **Exit menu after checkout to avoid lingering inside `menuBasket()`**
 
         default:

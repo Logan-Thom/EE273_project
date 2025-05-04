@@ -4,8 +4,11 @@
 #include <vector>
 #include <string>
 #include "Product.h"
+#include "ECommerce.h"
 #include <utility> // For std::pair
 #include "Basket.h"
+
+class ECommerce;
 
 class Checkout {
 

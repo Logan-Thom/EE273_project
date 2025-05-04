@@ -3,6 +3,7 @@
 #include "Database.h"
 #include "AdminLogin.h"
 #include "AdminControlls.h"
+#include "Coupon.h"
 #include "Product.h"
 #include <iostream>
 #include <vector>
@@ -13,7 +14,6 @@
 ECommerce::ECommerce(){
     this->adminControlls.order.CreateDataVec();
     this->adminControlls.order.SortDataVec();
-    this->adminControlls.order.OrderViewSelect();   
     this->LoadCoupons();
     this->LoadProducts();
 }
@@ -75,7 +75,7 @@ void ECommerce::handleMenuSelection() {
             browseProducts(this->basket); // Ensure this function fully exits before returning
             break;
         case 3:
-            basket_utils.menuBasket(*this, this->basket); //need to pass this as a reference because baset_utils uses this class' methods
+            basket_utils->menuBasket(*this, this->basket); //need to pass this as a reference because baset_utils uses this class' methods
             break;
         case 4:
             std::cout << "Exiting the system. Goodbye!\n";
@@ -150,7 +150,7 @@ void ECommerce::browseProducts(std::vector<std::pair<Product, int>>& basket) {
         std::cout << "No products found in this category.\n";
     }
 
-    basket_utils.addToBasket(*this,basket, products);
+    basket_utils->addToBasket(*this,basket, products);
 
     // Clear input buffer to avoid unwanted behavior
     std::cin.clear();
@@ -172,27 +172,32 @@ void ECommerce::attemptLogin(){
     while (attempts != 0){
         std::cout << "Username: ";
         std::cin >> username_try;
-        std::cout << "\nPassword: ";
+        std::cout << "Password: ";
         std::cin >> password_try;
         AdminLogin checked_login(username_try,password_try);
         if(correct_details.AttemptLogin(checked_login)){
             //call function to display admin menu
             adminControlls.menuOptionSelect();
             //uncertain about this being here, but should work
-            return;
+            //return;
+            break;
         } else {
             std::cout << "Incorrect details. Please try again.\n";
             attempts--;
         }
     }
     std::cout << "Login attemps exceeded, redirecting...";
-    browseProducts(basket);
+    //browseProducts(basket);
 }
 
 void ECommerce::LoadCoupons(){
-    this->coupons = this->database_utils.loadCouponsFromFile();
+    this->coupons = this->database_utils->loadCouponsFromFile();
 }
 
 void ECommerce::LoadProducts(){
-    this->products = this->database_utils.loadProductsFromFile();
+    this->products = this->database_utils->loadProductsFromFile();
+}
+
+std::vector<Coupon> ECommerce::GetCoupons(){
+    return this->coupons;
 }

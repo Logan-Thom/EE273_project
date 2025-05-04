@@ -2,8 +2,13 @@
 #define BASKET_H
 
 #include "Product.h"
+#include "ECommerce.h"
 #include <vector>
 #include <utility> // For std::pair
+
+
+
+class ECommerce;
 
 class Basket {
 

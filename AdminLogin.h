@@ -12,7 +12,6 @@ class AdminLogin {
     AdminLogin(void);
     AdminLogin(std::string username, std::string password);
     bool AttemptLogin(AdminLogin login_attempt);
-    ~AdminLogin();
 };
  
 

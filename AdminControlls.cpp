@@ -60,51 +60,7 @@ void AdminControlls::menuOptionSelect(){
     }
 }
 
-//general idea is to show each item and how many there are in stock,
-//could be expanded to do so much more but keep simple for now
-/*
-void AdminControlls::viewInventory(){
-    this->RefreshScreen();
-    //file handle for read
-    std::string filepath = "products.txt";
-    std::ifstream productFile(filepath);
 
-    std::string fileLine;
-    std::string splitLine;
-    char delimiter = ',';
-
-
-
-    //know when to return
-        while(getline (productFile, fileLine)){
-            std::stringstream ss(fileLine);
-            productInformation current_product;
-            //go through the line;
-            int i = 0;
-            while(getline (ss, splitLine, delimiter)){
-                if (i==0){
-                    current_product.id = std::stoi(splitLine);
-                } else if (i==1){
-                    current_product.product_name = splitLine;
-                } else if (i==2){
-                    current_product.price = std::stof(splitLine);
-                } else if (i==3){
-                    current_product.stock = std::stoi(splitLine);
-                }
-
-                i++;
-            }
-
-            //store in vector incase of re-use
-            products.push_back(current_product);
-
-            //display for user
-            std::cout << current_product.id << " " << current_product.product_name << " has " << current_product.stock << " unit(s) remaining." << std::endl;
-        }
-        std::cout << "========================\n";
-
-}
-*/
 
 
 //lord help me

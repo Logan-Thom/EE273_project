@@ -41,7 +41,7 @@ double Checkout::getCouponDiscount(ECommerce& ecommerce) {
 
     // If the user has a coupon, prompt for code
     std::string couponCode;
-    std::vector<Coupon> coupons = loadCouponsFromFile();
+    std::vector<Coupon> coupons = ecommerce.GetCoupons();
     while (true) {
         std::cout << "Enter your coupon code: ";
         std::cin >> couponCode;
@@ -49,7 +49,7 @@ double Checkout::getCouponDiscount(ECommerce& ecommerce) {
         // Check if the coupon exists
         for (Coupon& coupon : coupons) {
             if (coupon.getCode() == couponCode && coupon.isActive() && coupon.getUsed() < coupon.getMaxUses()) {
-                updateCouponUsage(coupon.getCouponID(), coupons);
+                ecommerce.database_utils->updateCouponUsage(coupon.getCouponID(), coupons); //!!! this needs to go into coupons, not database
                 return coupon.getDiscountPercentage();
             }
         }
@@ -119,7 +119,7 @@ void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Pro
     ecommerce.PauseProgram();
 
 
-    checkoutUpdateStock(basket);
+    ecommerce.database_utils->checkoutUpdateStock(basket);
 
 
 
