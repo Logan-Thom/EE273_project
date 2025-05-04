@@ -67,7 +67,7 @@
 67,Philosophy Book,Books,632.41,187
 68,T-Shirt,Clothing,471.52,12
 69,Leggings,Clothing,1168.31,106
-70,Fantasy Adventure,Books,859.06,81
+70,Fantasy Adventure,Books,859.06,79
 71,Health and Fitness,Books,332.5,104
 72,Smartphone,Electronics,548.89,190
 73,E-Reader,Electronics,811.11,110

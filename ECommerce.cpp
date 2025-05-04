@@ -187,7 +187,6 @@ void ECommerce::attemptLogin(){
         }
     }
     std::cout << "Login attemps exceeded, redirecting...";
-    //browseProducts(basket);
 }
 
 void ECommerce::LoadCoupons(){
