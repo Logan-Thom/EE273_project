@@ -1,15 +1,14 @@
 ﻿#include "Checkout.h"
 #include "Database.h"
 //#include "email_sender.h"
-#include "menu.h"
-#include "screen_utilities.h"
+#include "ECommerce.h"
 #include <iostream>
 #include <fstream>
 #include <ctime>
 #include <limits>
 
 // Function to generate current timestamp
-std::string getCurrentTimestamp() {
+std::string Checkout::getCurrentTimestamp() {
     time_t now = time(0);
     struct tm timeinfo;
     localtime_s(&timeinfo, &now); // Secure version
@@ -21,7 +20,7 @@ std::string getCurrentTimestamp() {
 
 
 //Coupon Prosses
-double getCouponDiscount() {
+double Checkout::getCouponDiscount(ECommerce& ecommerce) {
     char hasCoup;
     
 
@@ -68,12 +67,12 @@ double getCouponDiscount() {
 
 
 // Function to handle checkout
-void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
-    clearScreen();
+void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket) {
+    ecommerce.ClearScreen();
     if (basket.empty()) {
         std::cout << "\nYour basket is empty. Add products before checking out.\n\n";
-        pauseProgram();
-        handleMenuSelection(basket);
+        ecommerce.PauseProgram();
+        ecommerce.handleMenuSelection();
     }
     
     std::string cardNumber, expiryDate, cvv, email;
@@ -90,7 +89,7 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     // Validate card details
     if (cardNumber.length() != 16 || expiryDate.length() != 5 || cvv.length() != 3) {
         std::cout << "Invalid payment details! Please try again.\n";
-        pauseProgram();
+        ecommerce.PauseProgram();
         return;
     }
     std::cout << "Payment details valid \n\n";
@@ -109,7 +108,7 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     
 
     
-    double couponDiscount = getCouponDiscount();
+    double couponDiscount = getCouponDiscount(ecommerce);
     
     
     totalCost *=couponDiscount;
@@ -117,7 +116,7 @@ void proceedToCheckout(std::vector<std::pair<Product, int>>& basket) {
     std::cout << "\n---------------------------------\n";
     std::cout << "\n";
     std::cout << "Ready to Purchase\n";
-    pauseProgram();
+    ecommerce.PauseProgram();
 
 
     checkoutUpdateStock(basket);

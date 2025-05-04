@@ -5,8 +5,13 @@
 #include <vector>
 #include <utility> // For std::pair
 
-void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products);
-void viewBasket(const std::vector<std::pair<Product, int>>& basket);
-void menuBasket(std::vector<std::pair<Product, int>>& basket); // New function for editing basket
+class Basket {
 
+public:
+
+void addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products);
+void viewBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket);
+void menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket); // New function for editing basket
+
+};
 #endif

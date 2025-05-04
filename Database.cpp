@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-std::vector<Product> loadProductsFromFile() {
+std::vector<Product> Database::loadProductsFromFile() {
     std::vector<Product> productList;
     std::ifstream file("products.txt");
 
@@ -37,7 +37,7 @@ std::vector<Product> loadProductsFromFile() {
 // =================== COUPON MANAGEMENT ===================
 
 // Load all coupons from file
-std::vector<Coupon> loadCouponsFromFile() {
+std::vector<Coupon> Database::loadCouponsFromFile() {
     std::vector<Coupon> coupons;
     std::ifstream file("coupons.txt");
 
@@ -71,7 +71,7 @@ std::vector<Coupon> loadCouponsFromFile() {
     file.close();
     return coupons;
 }
-void updateCouponUsage(int couponID, std::vector<Coupon>& coupons){
+void Database::updateCouponUsage(int couponID, std::vector<Coupon>& coupons){
    
     for (auto& coupon : coupons) {
         if (coupon.getCouponID() == couponID) {
@@ -97,7 +97,7 @@ void updateCouponUsage(int couponID, std::vector<Coupon>& coupons){
 }
 
 
-void checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket) {
+void Database::checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket) {
     std::vector<Product> products = loadProductsFromFile();
 
     for (const auto& item : basket) {

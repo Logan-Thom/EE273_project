@@ -1,20 +1,20 @@
 #include "Basket.h"
-#include "menu.h"
+#include "ECommerce.h"
 #include "Checkout.h"
-#include "screen_utilities.h"
 #include <iostream>
 #include <limits>
+#include <algorithm>
 
 
 // Function to add a product with quantity to the basket
-void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products) {
+void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products) {
     while (true) {
         std::cout << "\nEnter the Product ID to add to basket (or type 'view' to see basket, 'back' to return, 'checkout' to buy): ";
         std::string input;
         std::cin >> input;
 
         if (input == "view") {
-            menuBasket(basket);
+            menuBasket(ecommerce,basket);
             continue;
         }
         else if (input == "back") {
@@ -88,12 +88,12 @@ void addToBasket(std::vector<std::pair<Product, int>>& basket, const std::vector
 
 
 // Function to display the basket
-void viewBasket(std::vector<std::pair<Product, int>>& basket) {
-    clearScreen();
+void Basket::viewBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket) {
+    ecommerce.ClearScreen();
     if (basket.empty()) {
         std::cout << "\nYour basket is empty.\n";
-        pauseProgram();
-        handleMenuSelection(basket);
+        ecommerce.PauseProgram();
+        ecommerce.handleMenuSelection();
     }
     std::cout << "\n========================\n";
     std::cout << "\nYour Basket:\n";
@@ -108,9 +108,9 @@ void viewBasket(std::vector<std::pair<Product, int>>& basket) {
 }
 
 // Function to edit the basket
-void menuBasket(std::vector<std::pair<Product, int>>& basket) {
+void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket) {
     while (true) {
-        viewBasket(basket);
+        this->viewBasket(ecommerce, basket);
 
         std::cout << "\nBasket Editing Options:\n";
         std::cout << "1. Edit quantity of an item\n";
