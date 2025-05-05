@@ -90,7 +90,7 @@
 90,Business Strategy,Books,881.79,176
 91,Gaming Console,Electronics,1286.77,80
 92,Portable Projector,Electronics,1399.79,70
-93,Tablet,Electronics,1105.89,154
+93,Tablet,Electronics,1105.89,153
 94,Graphic Novel,Books,536.08,157
 95,Travel Guide,Books,1322.48,72
 96,Smart TV,Electronics,347.17,40

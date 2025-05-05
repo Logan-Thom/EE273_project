@@ -46,10 +46,10 @@ class AdminControlls : public Display {
     }
     void displayAdminMenu();
     void menuOptionSelect();
-    void viewOrderHistory();
     void viewInventory();
     void manageInventory();
-    void editProductFile();
+    void manageCoupons();
+    void editProductVec();
     void returnToMainMenu();
 
 };

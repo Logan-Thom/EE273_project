@@ -1,5 +1,6 @@
 ﻿#include "Checkout.h"
 #include "Database.h"
+#include "Order.h"
 //#include "email_sender.h"
 #include "ECommerce.h"
 #include <iostream>
@@ -122,8 +123,12 @@ void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Pro
     ecommerce.database_utils->checkoutUpdateStock(basket);
 
 
+/*
 
-    // Save order details to file
+    IMPORTANT NOTE, we are no longer writing to file at this stage, but will in fact just append to the array.
+    This is being kept just in case it is needed in the future
+
+    // Save order details to file, must modify the vector of orders within ECommerce.AdminControlls.Order
     std::ofstream orderFile("orders.txt", std::ios::app);
     if (!orderFile) {
         std::cerr << "Error: Could not open orders.txt to save the order.\n";
@@ -144,6 +149,37 @@ void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Pro
     orderFile.close();
     //send_order_emails(email, basket, timestamp, cardNumber, expiryDate, totalCost);
 
+
+
+            struct orderInformation{
+            int items_bought; 
+            string date;
+            string time;
+            int date_time;
+            int card_identifier;
+            string card_expiry;
+            string item;
+            int quantity;
+            float unit_cost;
+            float item_payment;
+            float total_payment;
+*/
+    std::string timestamp = getCurrentTimestamp();
+    Order::orderInformation order;
+    for (const auto& item : basket){
+        order.items_bought = basket.size();
+        order.date = timestamp.substr(0,10);
+        order.time = timestamp.substr(12,8);
+        order.date_time = ( (stoi(order.time.substr(6,2))) + ((stoi(order.time.substr(3,2)))*100) + ((stoi(order.time.substr(0,2)))*10000) + ((stoi(order.date.substr(8,2)))*1000000) + ((stoi(order.date.substr(5,2)))*100000000) + ((stoi(order.date.substr(0,4)))*1000000000000)); //makes an int of the timestamp, useful for sorting.
+        order.card_identifier = stoi(cardNumber.substr(12,4));
+        order.card_expiry = expiryDate;
+        order.item = item.first.getName(); //same name for both but should work because different namespaces
+        order.quantity = item.second;
+        order.unit_cost = item.first.getPrice();
+        order.total_payment = totalCost;
+        
+        ecommerce.GetAdminControlls().order.AddToOrderVec(order);
+    }
 
     // Clear the basket
     basket.clear();

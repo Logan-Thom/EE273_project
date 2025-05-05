@@ -263,3 +263,8 @@ void Order::SaveDataVec(){
 
     orderFile.close();
 }
+
+
+void Order::AddToOrderVec(orderInformation order){
+    this->order_vec.push_back(order);
+}

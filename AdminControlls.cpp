@@ -12,7 +12,8 @@ void AdminControlls::displayAdminMenu(){
     std::cout << "1. View Inventory" << std::endl;
     std::cout << "2. Manage Inventory" << std::endl;
     std::cout << "3. View Order History" << std::endl;
-    std::cout << "4. Return to Main Menu" << std::endl;
+    std::cout << "4. Mange Coupons" << std::endl;
+    std::cout << "5. Return to Main Menu" << std::endl;
     std::cout << "========================\n";
 }
 
@@ -41,15 +42,19 @@ void AdminControlls::menuOptionSelect(){
         switch(choice){
             case 1:
                 this->viewInventory();
+                this->PauseProgram(); //keep on screen until input
                 break;
             case 2:
                 this->manageInventory();
                 break;
             case 3:
-                std::cout << "Don't do this yet" << std::endl;
-                //this.viewOrderHistory();
+                this->order.SortDataVec(); //make sure everything is okay first
+                this->order.OrderViewSelect();
                 break;
             case 4:
+                //!!!manage coupons
+                break;
+            case 5:
                 this->returnToMainMenu();
                 break;
             default:
@@ -66,15 +71,15 @@ void AdminControlls::menuOptionSelect(){
 //lord help me
 void AdminControlls::viewInventory(){
     //take the products
+    //how do I do this?
+    for (auto prod : this->products_vec){
+        std::cout << prod.getId() << " " << prod.getName() << " " << prod.getStock() << std::endl;
+    }
+
 }
 
-void AdminControlls::viewOrderHistory(){
-   //call the orders class here
-}
 
-//currently need to run viewInventory first, which is stupid, need to put things into constructors
-//and do background init tasks because the code here is dreadfully bad
-//hell, this whole class needs re-written
+//!!! General principle. Show inventory, ask for ID, give options, update vector (products probs)
 void AdminControlls::manageInventory(){
     //view so you can actually see what is being editted, 
     //need a new condensed method to call a refreshing version of this
@@ -96,7 +101,7 @@ void AdminControlls::manageInventory(){
         //this may not work, need to check reference
         if(ID_for_restock != -1){
             products_vec[ID_for_restock - 1].addStock(num_to_restock);
-            this->editProductFile(); //hate it so much, WILL be changing
+
         } else {
             stay_on_screen = false;
         }
@@ -104,7 +109,9 @@ void AdminControlls::manageInventory(){
 }
 
 //this could maybe be a virtual/overriden function, look into it, at the least it can inherrit
-void AdminControlls::editProductFile(){
+//Note: no longer needed
+/*
+void AdminControlls::editProductVec(){
     //open file for write, and write contents of vector to it.
     //this wouldn't need to exist if previous files were better
     std::ofstream productFile("products.txt");
@@ -115,7 +122,7 @@ void AdminControlls::editProductFile(){
 
     productFile.close();
 }
-
+*/
 void AdminControlls::returnToMainMenu(){
     this->running = false;
 }

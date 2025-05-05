@@ -6,8 +6,9 @@
 
 using namespace std;
 class Order : public Display {
-    private:
-        struct orderInformation{
+    public:
+    
+            struct orderInformation{
             int items_bought; 
             string date;
             string time;
@@ -21,11 +22,14 @@ class Order : public Display {
             float total_payment;
         };
 
+    private:
+
+
     
 
         string file_name = "orders.txt";
         vector<orderInformation> order_vec;
-    
+
     public:
         //Order(); //don't need constructor, handled by other classes
         void CreateDataVec();
@@ -36,5 +40,6 @@ class Order : public Display {
         void PrintVec(); //debug
         void SaveDataVec();
         vector<orderInformation> GetOrderVec();
+        void AddToOrderVec(orderInformation order);
         //~Order();
 };
