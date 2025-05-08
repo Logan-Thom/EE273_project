@@ -1,5 +1,3 @@
-
-
 #pragma once
 #include "Display.h"
 #include <string>
@@ -29,11 +27,8 @@ class AdminControlls : public Display {
         float total_payment;
     };
 
-
-
     std::vector<productInformation> vector_of_products;
     
-
     public:
         Order order;
         std::vector<Product> products_vec;
@@ -49,5 +44,4 @@ class AdminControlls : public Display {
     void manageCoupons();
     void editProductVec();
     bool returnToMainMenu();
-
 };
