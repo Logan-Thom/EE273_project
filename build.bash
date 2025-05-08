@@ -1,1 +1,1 @@
-g++ *.cpp -o main -lcurl
+g++ AdminControlls.cpp Basket.cpp Checkout.cpp Coupon.cpp Database.cpp Display.cpp ECommerce.cpp Order.cpp Product.cpp main.cpp

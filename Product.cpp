@@ -17,7 +17,7 @@ void Product::addStock(int quantity){
 }
 
 // Getter functions
-int Product::getId() const { return id; }
+std::string Product::getId() const { return id; }
 std::string Product::getName() const { return name; }
 std::string Product::getCategory() const { return category; }
 double Product::getPrice() const { return price; }

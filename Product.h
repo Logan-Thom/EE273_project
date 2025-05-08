@@ -4,8 +4,8 @@
 #include <string>
 
 class Product {
-private:
-    int id;
+protected:
+    std::string id;
     std::string name;
     std::string category;
     double price;
@@ -18,7 +18,7 @@ public:
     void removeStock(int quantity);
     void addStock(int quantity);
     // Getters
-    int getId() const; 
+    std::string getId() const; 
     std::string getName() const;
     std::string getCategory() const;
     double getPrice() const;

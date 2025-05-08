@@ -14,7 +14,7 @@ class Basket {
 
 public:
 
-void addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products);
+void addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products, const std::string& mode);
 void viewBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket);
 void menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket); // New function for editing basket
 

@@ -1,100 +1,100 @@
-1,VR Headset,Electronics,56.52,43
-2,External Hard Drive,Electronics,518.91,87
-3,E-Reader,Electronics,1275.57,160
-4,Running Shoes,Clothing,372.08,32
-5,Power Bank,Electronics,478.27,144
-6,Monitor,Electronics,413.05,50
-7,Jeans,Clothing,1015.04,41
-8,Leather Belt,Clothing,1229.05,43
-9,Backpack,Clothing,266.67,15
-10,Historical Fiction,Books,57.3,40
-11,Travel Guide,Books,323.51,185
-12,Mystery Thriller,Books,691.87,11
-13,Raincoat,Clothing,160.47,22
-14,Shorts,Clothing,243.5,138
-15,Finance and Investing,Books,702.98,74
-16,Self-Help Guide,Books,1312.78,65
-17,Historical Fiction,Books,394.77,187
-18,Poetry Collection,Books,106.9,179
-19,E-Reader,Electronics,1382.83,32
-20,Hoodie,Clothing,1324.43,125
-21,Winter Boots,Clothing,1478.19,141
-22,Backpack,Clothing,333.62,130
-23,Educational Textbook,Books,1062.16,45
-24,Leather Belt,Clothing,201.59,138
-25,Wireless Earbuds,Electronics,1320.57,181
-26,Portable Projector,Electronics,210.67,35
-27,Headphones,Electronics,579.01,102
-28,Jeans,Clothing,66.23,174
-29,Portable Projector,Electronics,912.17,58
-30,Graphic Novel,Books,1478.56,194
-31,Mystery Thriller,Books,635.62,56
-32,Sneakers,Clothing,989.14,86
-33,Book,Books,1424.02,192
-34,Historical Fiction,Books,660.71,45
-35,Psychology Book,Books,766.16,104
-36,Cap,Clothing,1212.72,165
-37,Historical Fiction,Books,867.4,14
-38,Jeans,Clothing,741.26,190
-39,Travel Guide,Books,1072.43,77
-40,Mystery Thriller,Books,1356.95,51
-41,E-Reader,Electronics,584.25,147
-42,Gaming Mouse,Electronics,497.58,117
-43,Formal Suit,Clothing,1409.13,71
-44,Sunglasses,Clothing,1491.95,120
-45,Winter Boots,Clothing,974.7,109
-46,Socks,Clothing,1369.82,106
-47,Running Shoes,Clothing,22.54,145
-48,Streaming Stick,Electronics,325.27,64
-49,Smartwatch,Electronics,514.12,19
-50,Travel Guide,Books,297.26,169
-51,Laptop,Electronics,1297.9,70
-52,Cap,Clothing,88.88,91
-53,Formal Suit,Clothing,721.26,113
-54,Leggings,Clothing,926.84,112
-55,Sunglasses,Clothing,918.37,156
-56,Biography,Books,1314.55,26
-57,Finance and Investing,Books,576.56,87
-58,Programming Guide,Books,54.11,10
-59,Tablet,Electronics,58.98,117
-60,VR Headset,Electronics,702.32,75
-61,External Hard Drive,Electronics,170.07,154
-62,Jeans,Clothing,1380.43,125
-63,Raincoat,Clothing,1335.87,22
-64,Socks,Clothing,1044.43,189
-65,Hoodie,Clothing,396.31,199
-66,Finance and Investing,Books,1417.45,47
-67,Philosophy Book,Books,632.41,187
-68,T-Shirt,Clothing,471.52,12
-69,Leggings,Clothing,1168.31,106
-70,Fantasy Adventure,Books,859.06,79
-71,Health and Fitness,Books,332.5,104
-72,Smartphone,Electronics,548.89,190
-73,E-Reader,Electronics,811.11,110
-74,Jacket,Clothing,859.27,143
-75,Gaming Mouse,Electronics,909.6,160
-76,Sweater,Clothing,1150.21,100
-77,Leather Belt,Clothing,1106.68,165
-78,Graphics Card,Electronics,1118.75,159
-79,Jeans,Clothing,1116.84,123
-80,Running Shoes,Clothing,1148.83,174
-81,Portable Projector,Electronics,18.86,69
-82,Jacket,Clothing,53.12,81
-83,Children’s Storybook,Books,51.13,112
-84,Dress Shoes,Clothing,250.42,136
-85,External Hard Drive,Electronics,1298.82,190
-86,T-Shirt,Clothing,934.42,76
-87,Smartphone,Electronics,611.05,151
-88,Self-Help Guide,Books,922.12,157
-89,Jacket,Clothing,1312.33,61
-90,Business Strategy,Books,881.79,176
-91,Gaming Console,Electronics,1286.77,80
-92,Portable Projector,Electronics,1399.79,70
-93,Tablet,Electronics,1105.89,153
-94,Graphic Novel,Books,536.08,157
-95,Travel Guide,Books,1322.48,72
-96,Smart TV,Electronics,347.17,40
-97,Poetry Collection,Books,1470.6,131
-98,Science Fiction Novel,Books,95.62,94
-99,Backpack,Clothing,613.82,28
-100,Hoodie,Clothing,699.07,16
+P1,VR Headset,Electronics,56.52,42
+P2,External Hard Drive,Electronics,518.91,85
+P3,E-Reader,Electronics,1275.57,160
+P4,Running Shoes,Clothing,372.08,32
+P5,Power Bank,Electronics,478.27,139
+P6,Monitor,Electronics,413.05,50
+P7,Jeans,Clothing,1015.04,25
+P8,Leather Belt,Clothing,1229.05,17
+P9,Backpack,Clothing,266.67,7
+P10,Historical Fiction,Books,57.3,40
+P11,Travel Guide,Books,323.51,185
+P12,Mystery Thriller,Books,691.87,11
+P13,Raincoat,Clothing,160.47,22
+P14,Shorts,Clothing,243.5,138
+P15,Finance and Investing,Books,702.98,74
+P16,Self-Help Guide,Books,1312.78,65
+P17,Historical Fiction,Books,394.77,187
+P18,Poetry Collection,Books,106.9,170
+P19,E-Reader,Electronics,1382.83,32
+P20,Hoodie,Clothing,1324.43,125
+P21,Winter Boots,Clothing,1478.19,141
+P22,Backpack,Clothing,333.62,130
+P23,Educational Textbook,Books,1062.16,45
+P24,Leather Belt,Clothing,201.59,138
+P25,Wireless Earbuds,Electronics,1320.57,181
+P26,Portable Projector,Electronics,210.67,35
+P27,Headphones,Electronics,579.01,102
+P28,Jeans,Clothing,66.23,174
+P29,Portable Projector,Electronics,912.17,58
+P30,Graphic Novel,Books,1478.56,194
+P31,Mystery Thriller,Books,635.62,56
+P32,Sneakers,Clothing,989.14,86
+P33,Book,Books,1424.02,192
+P34,Historical Fiction,Books,660.71,45
+P35,Psychology Book,Books,766.16,104
+P36,Cap,Clothing,1212.72,165
+P37,Historical Fiction,Books,867.4,14
+P38,Jeans,Clothing,741.26,190
+P39,Travel Guide,Books,1072.43,77
+P40,Mystery Thriller,Books,1356.95,51
+P41,E-Reader,Electronics,584.25,147
+P42,Gaming Mouse,Electronics,497.58,117
+P43,Formal Suit,Clothing,1409.13,71
+P44,Sunglasses,Clothing,1491.95,120
+P45,Winter Boots,Clothing,974.7,109
+P46,Socks,Clothing,1369.82,106
+P47,Running Shoes,Clothing,22.54,145
+P48,Streaming Stick,Electronics,325.27,64
+P49,Smartwatch,Electronics,514.12,19
+P50,Travel Guide,Books,297.26,169
+P51,Laptop,Electronics,1297.9,70
+P52,Cap,Clothing,88.88,91
+P53,Formal Suit,Clothing,721.26,113
+P54,Leggings,Clothing,926.84,112
+P55,Sunglasses,Clothing,918.37,156
+P56,Biography,Books,1314.55,26
+P57,Finance and Investing,Books,576.56,87
+P58,Programming Guide,Books,54.11,10
+P59,Tablet,Electronics,58.98,117
+P60,VR Headset,Electronics,702.32,75
+P61,External Hard Drive,Electronics,170.07,154
+P62,Jeans,Clothing,1380.43,125
+P63,Raincoat,Clothing,1335.87,22
+P64,Socks,Clothing,1044.43,189
+P65,Hoodie,Clothing,396.31,199
+P66,Finance and Investing,Books,1417.45,47
+P67,Philosophy Book,Books,632.41,178
+P68,T-Shirt,Clothing,471.52,12
+P69,Leggings,Clothing,1168.31,106
+P70,Fantasy Adventure,Books,859.06,81
+P71,Health and Fitness,Books,332.5,104
+P72,Smartphone,Electronics,548.89,190
+P73,E-Reader,Electronics,811.11,110
+P74,Jacket,Clothing,859.27,143
+P75,Gaming Mouse,Electronics,909.6,160
+P76,Sweater,Clothing,1150.21,100
+P77,Leather Belt,Clothing,1106.68,165
+P78,Graphics Card,Electronics,1118.75,159
+P79,Jeans,Clothing,1116.84,123
+P80,Running Shoes,Clothing,1148.83,174
+P81,Portable Projector,Electronics,18.86,69
+P82,Jacket,Clothing,53.12,81
+P83,Childrenâ€™s Storybook,Books,51.13,112
+P84,Dress Shoes,Clothing,250.42,136
+P85,External Hard Drive,Electronics,1298.82,190
+P86,T-Shirt,Clothing,934.42,76
+P87,Smartphone,Electronics,611.05,151
+P88,Self-Help Guide,Books,922.12,149
+P89,Jacket,Clothing,1312.33,61
+P90,Business Strategy,Books,881.79,77
+P91,Gaming Console,Electronics,1286.77,80
+P92,Portable Projector,Electronics,1399.79,70
+P93,Tablet,Electronics,1105.89,154
+P94,Graphic Novel,Books,536.08,157
+P95,Travel Guide,Books,1322.48,72
+P96,Smart TV,Electronics,347.17,40
+P97,Poetry Collection,Books,1470.6,131
+P98,Science Fiction Novel,Books,95.62,87
+P99,Backpack,Clothing,613.82,28
+P100,Hoodie,Clothing,699.07,16

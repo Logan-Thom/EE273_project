@@ -7,7 +7,7 @@
 
 
 // Function to add a product with quantity to the basket
-void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products) {
+void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products, const std::string& mode) {
     while (true) {
         std::cout << "\nEnter the Product ID to add to basket (or type 'view' to see basket, 'back' to return, 'checkout' to buy): ";
         std::string input;
@@ -25,29 +25,35 @@ void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, in
             return;
         }
 
-        int productId;
-        try {
-            productId = std::stoi(input);
-        }
-        catch (...) {
-            std::cout << "Invalid input. Please enter a valid Product ID.\n";
-            continue;
-        }
+        // int productId;
+        // try {
+        //     productId = std::stoi(input);
+        // }
+        // catch (...) {
+        //     std::cout << "Invalid input. Please enter a valid Product ID.\n";
+        //     continue;
+        // }
+
+        std::string productId = mode + input;
 
         bool found = false;
         for (const auto& product : products) {
             if (productId == product.getId()) {
-                int stock = product.getStock(); // Ensure stock is available
-                int quantity;
-                std::cout << "Enter quantity: ";
-                std::cin >> quantity;
+                int stock = product->getStock();
+                int quantity = 1;
 
-                if (std::cin.fail() || quantity <= 0) {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    std::cout << "Invalid quantity. Please enter a positive number.\n";
-                    continue;
+                if (stock > 1) {
+                    std::cout << "Enter quantity (max " << stock << " available): ";
+                    std::cin >> quantity;
+
+                    if (std::cin.fail() || quantity <= 0) {
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::cout << "Invalid quantity. Please enter a positive number.\n";
+                        continue;
+                    }
                 }
+
 
                 // Check if product is already in basket
                 bool existsInBasket = false;

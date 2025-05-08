@@ -74,6 +74,34 @@ void ECommerce::handleMenuSelection() {
         case 2:
             browseProducts(this->basket); // Ensure this function fully exits before returning
             break;
+            clearScreen();
+            std::cout << "Browse Options:\n";
+            std::cout << "1. Browse Products\n";
+            std::cout << "2. Browse Services\n";
+            std::cout << "Enter your choice: ";
+
+            int browseChoice;
+            std::cin >> browseChoice;
+
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Invalid input.\n";
+                pauseProgram();
+                break;
+            }
+
+            if (browseChoice == 1) {
+                browseItems(this->products, basket, "Products", "P");
+            }
+            else if (browseChoice == 2) {
+                browseItems(this->services, basket, "Services", "S");
+            }
+            else {
+                std::cout << "Invalid option.\n";
+                pauseProgram();
+            }
+            break;
         case 3:
             basket_utils->menuBasket(*this, this->basket); //need to pass this as a reference because baset_utils uses this class' methods
             break;
@@ -87,8 +115,68 @@ void ECommerce::handleMenuSelection() {
     }
 }
 
+void browseItems(const std::vector<Product>& items,
+    std::vector<std::pair<Product, int>>& basket,
+    const std::string& label,
+    const std::string& mode) {
+    clearScreen();
 
+    if (items.empty()) {
+        std::cout << "No " << label << " found.\n";
+        pauseProgram();
+        return;
+    }
 
+    std::map<std::string, int> categoryCount;
+    for (const auto& item : items) {
+        categoryCount[item->getCategory()]++;
+    }
+
+    std::vector<std::string> categoryList;
+    categoryList.push_back("All");
+
+    std::cout << "\nSelect a category to browse " << label << ":\n";
+    int index = 1;
+    std::cout << index++ << ". All (" << items.size() << ")\n";
+
+    for (const auto& pair : categoryCount) {
+        categoryList.push_back(pair.first);
+        std::cout << index++ << ". " << pair.first << " (" << pair.second << ")\n";
+    }
+
+    int choice;
+    std::cout << "Enter your choice: ";
+    std::cin >> choice;
+
+    if (std::cin.fail() || choice < 1 || choice > static_cast<int>(categoryList.size())) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Invalid choice. Returning...\n";
+        pauseProgram();
+        return;
+    }
+
+    std::string selectedCategory = categoryList[choice - 1];
+
+    clearScreen();
+    std::cout << "\nAvailable " << label << " (" << selectedCategory << "):\n";
+    bool found = false;
+
+    for (const auto& item : items) {
+        if (selectedCategory == "All" || item->getCategory() == selectedCategory) {
+            item->displayProduct();
+            found = true;
+        }
+    }
+
+    if (!found) {
+        std::cout << "No " << label << " found in this category.\n";
+    }
+
+    addToBasket(basket, items, mode);
+}
+
+/*
 void ECommerce::browseProducts(std::vector<std::pair<Product, int>>& basket) {
     ClearScreen();
 
@@ -156,7 +244,7 @@ void ECommerce::browseProducts(std::vector<std::pair<Product, int>>& basket) {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
-
+*/
 
 void ECommerce::attemptLogin(){
     //give user 3 attempts to get a correct login, store login details of admin in a class,
@@ -195,6 +283,10 @@ void ECommerce::LoadCoupons(){
 
 void ECommerce::LoadProducts(){
     this->products = this->database_utils->loadProductsFromFile();
+}
+
+void ECommerce::LoadServices(){
+    this->services = this->database_utils->loadServicesFromFile();
 }
 
 std::vector<Coupon> ECommerce::GetCoupons(){

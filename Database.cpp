@@ -35,6 +35,34 @@ std::vector<Product> Database::loadProductsFromFile() {
     file.close();
     return productList;
 }
+
+std::vector<Product> Database::loadServicesFromFile(){
+    std::vector<std::shared_ptr<Product>> serviceList;
+    std::ifstream file("services.txt");
+
+    if (!file) {
+        std::cerr << "Error: Could not open services.txt" << std::endl;
+        return serviceList;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        std::stringstream ss(line);
+        std::string id, name, category, priceStr;
+
+        if (std::getline(ss, id, ',') &&
+            std::getline(ss, name, ',') &&
+            std::getline(ss, category, ',') &&
+            std::getline(ss, priceStr, ',')) {
+
+            double price = std::stod(priceStr);
+            serviceList.push_back(std::make_shared<Service>(id, name, category, price));
+        }
+    }
+
+    return serviceList;
+}
+
 // =================== COUPON MANAGEMENT ===================
 
 // Load all coupons from file
