@@ -1,6 +1,8 @@
 #include "Database.h"
 #include "ECommerce.h"
+#include "Service.h"
 #include <fstream>
+#include <string>
 #include <memory>
 #include <sstream>
 #include <iostream>
