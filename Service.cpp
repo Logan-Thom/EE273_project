@@ -28,5 +28,5 @@ int Service::getStock() const {
 }
 
 void Service::removeStock(int quantity) {
-    // Do nothing — service stock isn't reduced
+    // Do nothing â€” service stock isn't reduced
 }

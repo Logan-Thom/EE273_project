@@ -6,7 +6,7 @@ AdminLogin::AdminLogin(std::string un, std::string pw){
     this->password = pw;
 }
 
-bool AdminLogin::operator==(AdminLogin login_attempt){
+bool AdminLogin::AttemptLogin(AdminLogin login_attempt){
     if(login_attempt.username == this->username && login_attempt.password == this->password){
         return true;
     } else {

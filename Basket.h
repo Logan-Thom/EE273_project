@@ -2,16 +2,21 @@
 #define BASKET_H
 
 #include "Product.h"
+#include "ECommerce.h"
 #include <vector>
-#include <memory>   // For std::shared_ptr
-#include <utility>  // For std::pair
+#include <utility> // For std::pair
 
-void addToBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket,
-    const std::vector<std::shared_ptr<Product>>& products,
-    const std::string& mode);
 
-void viewBasket(const std::vector<std::pair<std::shared_ptr<Product>, int>>& basket);
 
-void menuBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket);
+class ECommerce;
 
+class Basket {
+
+public:
+
+void addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products, const std::string& mode);
+void viewBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket);
+void menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket); // New function for editing basket
+
+};
 #endif

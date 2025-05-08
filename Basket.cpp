@@ -1,38 +1,44 @@
 #include "Basket.h"
-#include "menu.h"
+#include "ECommerce.h"
 #include "Checkout.h"
-#include "screen_utilities.h"
 #include <iostream>
 #include <limits>
 #include <algorithm>
-#include <memory>
-#include <iomanip>
+
 
 // Function to add a product with quantity to the basket
-void addToBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket, const std::vector<std::shared_ptr<Product>>& products, const std::string& mode) {
+void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products, const std::string& mode) {
     while (true) {
         std::cout << "\nEnter the Product ID to add to basket (or type 'view' to see basket, 'back' to return, 'checkout' to buy): ";
         std::string input;
         std::cin >> input;
 
         if (input == "view") {
-            clearScreen();
-            menuBasket(basket);
-            return;
+            menuBasket(ecommerce,basket);
+            continue;
         }
         else if (input == "back") {
-            return;
+            return;  // Properly exit the function
         }
         else if (input == "checkout") {
-            proceedToCheckout(basket);
+            ecommerce.checkout_utils->proceedToCheckout(ecommerce,basket);
             return;
         }
 
-        std::string productId = mode + input;
-        bool found = false;
+        // int productId;
+        // try {
+        //     productId = std::stoi(input);
+        // }
+        // catch (...) {
+        //     std::cout << "Invalid input. Please enter a valid Product ID.\n";
+        //     continue;
+        // }
 
+        std::string productId = mode + input;
+
+        bool found = false;
         for (const auto& product : products) {
-            if (productId == product->getId()) {
+            if (productId == product.getId()) {
                 int stock = product->getStock();
                 int quantity = 1;
 
@@ -48,16 +54,18 @@ void addToBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket, 
                     }
                 }
 
+
+                // Check if product is already in basket
                 bool existsInBasket = false;
                 for (auto& item : basket) {
-                    if (item.first->getId() == productId) {
+                    if (item.first.getId() == productId) {
                         if (item.second + quantity > stock) {
-                            std::cout << "Sorry, we only have " << stock << " in stock. Please enter a smaller quantity.\n";
-                            existsInBasket = true;
-                            break;
+                            std::cout << "Quantity too high! Only more" << stock - item.second << " available.\n";
+                            continue;
                         }
                         item.second += quantity;
-                        std::cout << quantity << " more added. You now have " << item.second << " x " << product->getName() << " in your basket.\n";
+                        std::cout << "Updated quantity of " << product.getName()
+                            << " in basket to " << item.second << ".\n";
                         existsInBasket = true;
                         break;
                     }
@@ -65,16 +73,11 @@ void addToBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket, 
 
                 if (!existsInBasket) {
                     if (quantity > stock) {
-                        std::cout << "Sorry, we only have " << stock << " in stock. Please enter a smaller quantity.\n";
+                        std::cout << "Quantity too high! Only " << stock << " available.\n";
                         continue;
                     }
                     basket.push_back(std::make_pair(product, quantity));
-                    if (stock == 1) {
-                        std::cout << product->getName() << " (Service) added to your basket.\n";
-                    }
-                    else {
-                        std::cout << "Added " << quantity << " x " << product->getName() << " to your basket.\n";
-                    }
+                    std::cout << quantity << " x " << product.getName() << " added to basket!\n";
                 }
 
                 found = true;
@@ -83,43 +86,37 @@ void addToBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket, 
         }
 
         if (!found) {
-            std::cout << "No product found with that ID. Please try again.\n";
+            std::cout << "Product ID not found. Try again.\n";
         }
     }
 }
 
+
+
 // Function to display the basket
-void viewBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
+void Basket::viewBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket) {
+    ecommerce.ClearScreen();
     if (basket.empty()) {
         std::cout << "\nYour basket is empty.\n";
-        pauseProgram();
-        handleMenuSelection(basket);
-        return;
+        ecommerce.PauseProgram();
+        ecommerce.handleMenuSelection();
     }
-
     std::cout << "\n========================\n";
     std::cout << "\nYour Basket:\n";
-
     double total = 0.0;
-    int index = 1;
-
     for (const auto& item : basket) {
-
-        std::cout << std::setw(2) << index++ << ". "
-            << std::setw(4) << item.second << " x ";
-        item.first->displayProduct();
-        total += item.first->getPrice() * item.second;
+        std::cout << item.second << " x "; // Quantity
+        item.first.displayProduct(); // Product details
+        total += item.first.getPrice()* item.second;
     }
-
-    std::cout << "\nTotal: " << static_cast<char>(156) << total;
+    std::cout << "\nTotal: "<< static_cast<char>(156) << total;
     std::cout << "\n---------------------------------\n";
 }
 
-
 // Function to edit the basket
-void menuBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
+void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket) {
     while (true) {
-        viewBasket(basket);
+        this->viewBasket(ecommerce, basket);
 
         std::cout << "\nBasket Editing Options:\n";
         std::cout << "1. Edit quantity of an item\n";
@@ -140,84 +137,72 @@ void menuBasket(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
         }
 
         switch (choice) {
-        case 1: {
-            int index;
-            std::cout << "Enter the basket index to edit: ";
-            std::cin >> index;
+        case 1: { // Edit quantity of an item
+            int productId, newQuantity;
+            std::cout << "Enter the Product ID to edit: ";
+            std::cin >> productId;
 
-            if (std::cin.fail() || index < 1 || index > static_cast<int>(basket.size())) {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                clearScreen();
-                std::cout << "Invalid index.\n";
-                continue;
-            }
+            bool found = false;
+            for (auto& item : basket) {
+                if (item.first.getId() == productId) {
+                    std::cout << "Enter new quantity: ";
+                    std::cin >> newQuantity;
 
-            auto& selectedItem = basket[index - 1];
-            int stock = selectedItem.first->getStock();
+                    if (std::cin.fail() || newQuantity <= 0) {
+                        std::cin.clear();
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::cout << "Invalid quantity. Please enter a positive number.\n";
+                        continue;
+                    }
 
-            if (stock == 1) {
-                clearScreen();
-                std::cout << "This is a service. Quantity cannot be changed.\n";
-                continue;
-            }
-
-            int newQuantity;
-            while (true) {
-                std::cout << "Enter new quantity (max " << stock << "): ";
-                std::cin >> newQuantity;
-
-                if (!std::cin.fail() && newQuantity > 0 && newQuantity <= stock) {
-                    selectedItem.second = newQuantity;
-                    clearScreen();
-                    std::cout << "Updated " << selectedItem.first->getName() << " quantity to " << newQuantity << ".\n";
+                    item.second = newQuantity;
+                    std::cout << "Updated " << item.first.getName() << " quantity to " << newQuantity << ".\n";
+                    found = true;
                     break;
                 }
-                else {
-                    std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    std::cout << "Invalid quantity. Please enter a number between 1 and " << stock << ".\n";
-                }
+            }
+
+            if (!found) {
+                std::cout << "Product ID not found in basket.\n";
             }
             break;
         }
 
-        case 2: {
-            int index;
-            std::cout << "Enter the basket index to remove: ";
-            std::cin >> index;
+        case 2: { // Remove an item
+            int productId;
+            std::cout << "Enter the Product ID to remove: ";
+            std::cin >> productId;
 
-            if (std::cin.fail() || index < 1 || index > static_cast<int>(basket.size())) {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                clearScreen();
-                std::cout << "Invalid index.\n";
-                continue;
+            auto it = std::remove_if(basket.begin(), basket.end(),
+                [productId](const std::pair<Product, int>& item) {
+                    return item.first.getId() == productId;
+                });
+
+            if (it != basket.end()) {
+                std::cout << "Removed product from basket.\n";
+                basket.erase(it, basket.end());
             }
-
-            std::cout << "Removed " << basket[index - 1].first->getName() << " from basket.\n";
-            basket.erase(basket.begin() + (index - 1));
-            clearScreen();
+            else {
+                std::cout << "Product ID not found in basket.\n";
+            }
             break;
         }
 
-        case 3:
+        case 3: // Clear the basket
             basket.clear();
-            clearScreen();
             std::cout << "Basket has been cleared.\n";
-
             break;
 
-        case 4:
-            return;
+        case 4: // Go back to main menu
+            return;  // **Ensure function exits properly**
 
-        case 5:
-            proceedToCheckout(basket);
-            return;
+        case 5: // Checkout
+            ecommerce.checkout_utils->proceedToCheckout(ecommerce,basket);
+            return;  // **Exit menu after checkout to avoid lingering inside `menuBasket()`**
 
         default:
-            clearScreen();
             std::cout << "Invalid choice. Please enter a number between 1-5.\n";
         }
     }
 }
+

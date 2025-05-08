@@ -1,4 +1,7 @@
-﻿#include "email_sender.h"
+﻿
+#include "email_sender.h"
+
+/*
 #include <iostream>
 #include <sstream>
 
@@ -78,15 +81,14 @@ bool send_email(const std::string& recipient, const std::string& subject, const 
 }
 
 void send_order_emails(const std::string& customer_email,
-    const std::vector<std::pair<std::shared_ptr<Product>, int>>& basket,
+    const std::vector<std::pair<Product, int>>& basket,
     const std::string& timestamp,
     const std::string& maskedCardNumber,
     const std::string& expiryDate,
     double totalCost) {
-
     std::stringstream customer_body, supplier_body;
 
-    // 📨 Customer Email
+    // 📨 Customer Email - Thank You for Your Order
     customer_body << "<html><body style='font-family: Arial, sans-serif;'>"
         << "<h2 style='color: #2C3E50;'>Thank You for Your Order!</h2>"
         << "<p>Dear Customer,</p>"
@@ -95,9 +97,9 @@ void send_order_emails(const std::string& customer_email,
         << "<tr><th>Product</th><th>Quantity</th><th>Price</th></tr>";
 
     for (const auto& item : basket) {
-        customer_body << "<tr><td>" << item.first->getName() << "</td>"
+        customer_body << "<tr><td>" << item.first.getName() << "</td>"
             << "<td>" << item.second << "</td>"
-            << "<td>£" << item.first->getPrice() * item.second << "</td></tr>";
+            << "<td>$" << item.first.getPrice() * item.second << "</td></tr>";
     }
 
     customer_body << "</table><p><strong>Total Cost: £" << totalCost << "</strong></p>"
@@ -105,25 +107,26 @@ void send_order_emails(const std::string& customer_email,
 
     send_email(customer_email, "Order Confirmation - Thank You!", customer_body.str());
 
-    // 📨 Supplier Email
+    // 📨 Supplier Email - New Order Received
     supplier_body << "<html><body style='font-family: Arial, sans-serif;'>"
         << "<h2 style='color: #2C3E50;'>New Order Received</h2>"
         << "<p><strong>Timestamp:</strong> " << timestamp << "</p>"
         << "<p><strong>Payment Details:</strong></p>"
-        << "<p>Card: " << maskedCardNumber << "</p>"
+        << "<p>Card: ****-****-****-" << maskedCardNumber << "</p>"
         << "<p>Expiry: " << expiryDate << "</p>"
         << "<h3>Order Details:</h3>"
         << "<table border='1' cellpadding='8' cellspacing='0' style='border-collapse: collapse; width: 100%;'>"
         << "<tr><th>Product</th><th>Quantity</th><th>Price</th></tr>";
 
     for (const auto& item : basket) {
-        supplier_body << "<tr><td>" << item.first->getName() << "</td>"
+        supplier_body << "<tr><td>" << item.first.getName() << "</td>"
             << "<td>" << item.second << "</td>"
-            << "<td>£" << item.first->getPrice() * item.second << "</td></tr>";
+            << "<td>$" << item.first.getPrice() * item.second << "</td></tr>";
     }
 
-    supplier_body << "</table><p><strong>Total Cost: £" << totalCost << "</strong></p>"
+    supplier_body << "</table><p><strong>Total Cost: $" << totalCost << "</strong></p>"
         << "<p>Please process the order as soon as possible.</p></body></html>";
 
     send_email(SUPPLIER_EMAIL, "New Order Received", supplier_body.str());
 }
+*/

@@ -1,16 +1,15 @@
 ﻿#include "Checkout.h"
 #include "Database.h"
-#include "email_sender.h"
-#include "menu.h"
-#include "screen_utilities.h"
+#include "Order.h"
+//#include "email_sender.h"
+#include "ECommerce.h"
 #include <iostream>
 #include <fstream>
 #include <ctime>
-#include <memory>   // Required for std::shared_ptr
 #include <limits>
 
 // Function to generate current timestamp
-std::string getCurrentTimestamp() {
+std::string Checkout::getCurrentTimestamp() {
     time_t now = time(0);
     struct tm timeinfo;
     localtime_s(&timeinfo, &now); // Secure version
@@ -21,9 +20,10 @@ std::string getCurrentTimestamp() {
 }
 
 
-
-std::pair<int, double> getCoupon() {
+//Coupon Prosses
+double Checkout::getCouponDiscount(ECommerce& ecommerce) {
     char hasCoup;
+    
 
     // Ask the user if they have a coupon
     std::cout << "Do you have a coupon? (Enter Y for YES or N for NO): ";
@@ -35,24 +35,23 @@ std::pair<int, double> getCoupon() {
         std::cin >> hasCoup;
     }
 
-    // If the user does not have a coupon, return {0, 1.0} (no discount)
+    // If the user does not have a coupon, return 1
     if (hasCoup == 'N' || hasCoup == 'n') {
-        return { 0, 1.0 };
+        return 1;
     }
 
     // If the user has a coupon, prompt for code
     std::string couponCode;
-    std::vector<Coupon> coupons = loadCouponsFromFile();
-
+    std::vector<Coupon> coupons = ecommerce.GetCoupons();
     while (true) {
         std::cout << "Enter your coupon code: ";
         std::cin >> couponCode;
-
+        
         // Check if the coupon exists
         for (Coupon& coupon : coupons) {
             if (coupon.getCode() == couponCode && coupon.isActive() && coupon.getUsed() < coupon.getMaxUses()) {
-                updateCouponUsage(coupon.getCouponID(), coupons);
-                return { coupon.getCouponID(), coupon.getDiscountPercentage() };
+                ecommerce.database_utils->updateCouponUsage(coupon.getCouponID(), coupons); //!!! this needs to go into coupons, not database
+                return coupon.getDiscountPercentage();
             }
         }
 
@@ -62,20 +61,19 @@ std::pair<int, double> getCoupon() {
         std::cin >> retry;
 
         if (retry == 'N' || retry == 'n') {
-            return { 0, 1.0 };  // Return default values (no discount)
+            return 1;
         }
     }
 }
 
 
-
 // Function to handle checkout
-void proceedToCheckout(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
-    clearScreen();
+void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket) {
+    ecommerce.ClearScreen();
     if (basket.empty()) {
         std::cout << "\nYour basket is empty. Add products before checking out.\n\n";
-        pauseProgram();
-        handleMenuSelection(basket);
+        ecommerce.PauseProgram();
+        ecommerce.handleMenuSelection();
     }
     
     std::string cardNumber, expiryDate, cvv, email;
@@ -92,7 +90,7 @@ void proceedToCheckout(std::vector<std::pair<std::shared_ptr<Product>, int>>& ba
     // Validate card details
     if (cardNumber.length() != 16 || expiryDate.length() != 5 || cvv.length() != 3) {
         std::cout << "Invalid payment details! Please try again.\n";
-        pauseProgram();
+        ecommerce.PauseProgram();
         return;
     }
     std::cout << "Payment details valid \n\n";
@@ -103,41 +101,88 @@ void proceedToCheckout(std::vector<std::pair<std::shared_ptr<Product>, int>>& ba
     double totalCost = 0.0;
     for (const auto& item : basket) {
         std::cout << item.second << " x "; // Quantity
-        item.first->displayProduct(); // Product details
-        totalCost += item.first->getPrice() * item.second;
+        item.first.displayProduct(); // Product details
+        totalCost += item.first.getPrice() * item.second;
     }
     std::cout << "\nTotal: " << static_cast<char>(156) << totalCost;
     std::cout << "\n---------------------------------\n";
     
 
     
-    std::pair<int, double> couponData = getCoupon();
-    int couponID = couponData.first;
-    double couponDiscount = couponData.second;
+    double couponDiscount = getCouponDiscount(ecommerce);
     
-
     
     totalCost *=couponDiscount;
     std::cout << "Final Cost: "<< totalCost;
     std::cout << "\n---------------------------------\n";
     std::cout << "\n";
     std::cout << "Ready to Purchase\n";
-    pauseProgram();
+    ecommerce.PauseProgram();
 
 
-    checkoutUpdateStock(basket);
+    ecommerce.database_utils->checkoutUpdateStock(basket);
+
+
+/*
+
+    IMPORTANT NOTE, we are no longer writing to file at this stage, but will in fact just append to the array.
+    This is being kept just in case it is needed in the future
+
+    // Save order details to file, must modify the vector of orders within ECommerce.AdminControlls.Order
+    std::ofstream orderFile("orders.txt", std::ios::app);
+    if (!orderFile) {
+        std::cerr << "Error: Could not open orders.txt to save the order.\n";
+        return;
+    }
 
     std::string timestamp = getCurrentTimestamp();
- 
-    addOrdertoDB(timestamp, cardNumber, expiryDate, email, couponID, basket);
-    std::string maskedCardNumber = "XXXX-XXXX-XXXX-" + cardNumber.substr(12, 4);;
+    orderFile << timestamp << ","
+        << "XXXX-XXXX-XXXX-" << cardNumber.substr(12, 4) << ","
+        << expiryDate << ",";
 
-    send_order_emails(email, basket, timestamp, maskedCardNumber, expiryDate, totalCost);
+    for (const auto& item : basket) {
+        orderFile << item.first.getName() << "," << item.second << "," << item.first.getPrice() << ",";
+    }
 
+    orderFile << totalCost << "\n"; // Save total cost at the end
+
+    orderFile.close();
+    //send_order_emails(email, basket, timestamp, cardNumber, expiryDate, totalCost);
+
+
+
+            struct orderInformation{
+            int items_bought; 
+            string date;
+            string time;
+            int date_time;
+            int card_identifier;
+            string card_expiry;
+            string item;
+            int quantity;
+            float unit_cost;
+            float item_payment;
+            float total_payment;
+*/
+    std::string timestamp = getCurrentTimestamp();
+    Order::orderInformation order;
+    for (const auto& item : basket){
+        order.items_bought = basket.size();
+        order.date = timestamp.substr(0,10);
+        order.time = timestamp.substr(12,8);
+        order.date_time = ( (stoi(order.time.substr(6,2))) + ((stoi(order.time.substr(3,2)))*100) + ((stoi(order.time.substr(0,2)))*10000) + ((stoi(order.date.substr(8,2)))*1000000) + ((stoi(order.date.substr(5,2)))*100000000) + ((stoi(order.date.substr(0,4)))*1000000000000)); //makes an int of the timestamp, useful for sorting.
+        order.card_identifier = stoi(cardNumber.substr(12,4));
+        order.card_expiry = expiryDate;
+        order.item = item.first.getName(); //same name for both but should work because different namespaces
+        order.quantity = item.second;
+        order.unit_cost = item.first.getPrice();
+        order.total_payment = totalCost;
+        
+        ecommerce.GetAdminControlls().order.AddToOrderVec(order);
+    }
 
     // Clear the basket
     basket.clear();
     std::cout << "\nOrder placed successfully! Your basket has been cleared.\n";
-    pauseProgram();
     return;
 }

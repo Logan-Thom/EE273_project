@@ -10,23 +10,22 @@ protected:
     std::string category;
     double price;
     int stock;
-
 public:
-    Product(std::string id, const std::string& name, const std::string& category, double price, int stock);
-
-    // Virtual methods for polymorphism
-    virtual void displayProduct() const;
-    virtual void removeStock(int quantity);
-    virtual int getStock() const;
-
+    Product(int id, const std::string &name, const std::string &category, double price, int stock);
+    
+    // Display product details
+    void displayProduct() const;
+    void removeStock(int quantity);
+    void addStock(int quantity);
     // Getters
-    std::string getId() const;
+    std::string getId() const; 
     std::string getName() const;
     std::string getCategory() const;
     double getPrice() const;
-
-    // Virtual destructor (best practice when using inheritance)
-    virtual ~Product() = default;
+    int getStock() const;
+    
+    //methods
+    
 };
 
 #endif
