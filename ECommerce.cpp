@@ -72,9 +72,9 @@ void ECommerce::handleMenuSelection() {
             attemptLogin();
             break;
         case 2:
-            browseProducts(this->basket); // Ensure this function fully exits before returning
-            break;
-            clearScreen();
+            // browseProducts(this->basket); // Ensure this function fully exits before returning
+            // break;
+            ClearScreen();
             std::cout << "Browse Options:\n";
             std::cout << "1. Browse Products\n";
             std::cout << "2. Browse Services\n";
@@ -87,19 +87,19 @@ void ECommerce::handleMenuSelection() {
                 std::cin.clear();
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::cout << "Invalid input.\n";
-                pauseProgram();
+                PauseProgram();
                 break;
             }
 
             if (browseChoice == 1) {
-                browseItems(this->products, basket, "Products", "P");
+                browseItems(this->products, this->basket, "Products", "P");
             }
             else if (browseChoice == 2) {
-                browseItems(this->services, basket, "Services", "S");
+                browseItems(this->services, this->basket, "Services", "S");
             }
             else {
                 std::cout << "Invalid option.\n";
-                pauseProgram();
+                PauseProgram();
             }
             break;
         case 3:
@@ -115,21 +115,21 @@ void ECommerce::handleMenuSelection() {
     }
 }
 
-void browseItems(const std::vector<Product>& items,
+void ECommerce::browseItems(const std::vector<Product>& items,
     std::vector<std::pair<Product, int>>& basket,
     const std::string& label,
     const std::string& mode) {
-    clearScreen();
+    ClearScreen();
 
     if (items.empty()) {
         std::cout << "No " << label << " found.\n";
-        pauseProgram();
+        PauseProgram();
         return;
     }
 
     std::map<std::string, int> categoryCount;
     for (const auto& item : items) {
-        categoryCount[item->getCategory()]++;
+        categoryCount[item.getCategory()]++;
     }
 
     std::vector<std::string> categoryList;
@@ -152,19 +152,19 @@ void browseItems(const std::vector<Product>& items,
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Invalid choice. Returning...\n";
-        pauseProgram();
+        PauseProgram();
         return;
     }
 
     std::string selectedCategory = categoryList[choice - 1];
 
-    clearScreen();
+    ClearScreen();
     std::cout << "\nAvailable " << label << " (" << selectedCategory << "):\n";
     bool found = false;
 
     for (const auto& item : items) {
-        if (selectedCategory == "All" || item->getCategory() == selectedCategory) {
-            item->displayProduct();
+        if (selectedCategory == "All" || item.getCategory() == selectedCategory) {
+            item.displayProduct();
             found = true;
         }
     }
@@ -173,7 +173,7 @@ void browseItems(const std::vector<Product>& items,
         std::cout << "No " << label << " found in this category.\n";
     }
 
-    addToBasket(basket, items, mode);
+    this->basket_utils->addToBasket(*this,basket, items, mode);
 }
 
 /*

@@ -43,5 +43,9 @@ class ECommerce : public Display {
         void displayMainMenu(const std::vector<std::pair<Product, int>>& basket);
         void handleMenuSelection(void);
         void browseProducts(std::vector<std::pair<Product, int>>& basket);
+        void browseItems(const std::vector<Product>& items,
+            std::vector<std::pair<Product, int>>& basket,
+            const std::string& label,
+            const std::string& mode);
         void attemptLogin(void);
 };

@@ -12,7 +12,7 @@
 std::string Checkout::getCurrentTimestamp() {
     time_t now = time(0);
     struct tm timeinfo;
-    localtime_s(&timeinfo, &now); // Secure version
+    localtime_r(&now, &timeinfo); //!!!
 
     char buffer[80];
     strftime(buffer, 80, "%Y-%m-%d %H:%M:%S", &timeinfo);

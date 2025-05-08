@@ -1,8 +1,9 @@
 #include "Product.h"
+#include <string>
 #include <iostream>
 #include <iomanip>
 
-Product::Product(int id, const std::string& name, const std::string& category, double price, int stock)
+Product::Product(std::string id, const std::string& name, const std::string& category, double price, int stock)
     : id(id), name(name), category(category), price(price), stock(stock) {
 }
 

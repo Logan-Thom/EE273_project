@@ -1,6 +1,7 @@
 #include "Database.h"
 #include "ECommerce.h"
 #include <fstream>
+#include <memory>
 #include <sstream>
 #include <iostream>
 
@@ -24,7 +25,7 @@ std::vector<Product> Database::loadProductsFromFile() {
             std::getline(ss, category, ',') &&
             std::getline(ss, priceStr, ',') &&
             std::getline(ss, stockStr, ',')) {
-            int id = std::stoi(idStr);
+            std::string id = idStr;
             double price = std::stod(priceStr);
             int stock = std::stoi(stockStr);
 
@@ -37,7 +38,7 @@ std::vector<Product> Database::loadProductsFromFile() {
 }
 
 std::vector<Product> Database::loadServicesFromFile(){
-    std::vector<std::shared_ptr<Product>> serviceList;
+    std::vector<Product> serviceList;
     std::ifstream file("services.txt");
 
     if (!file) {
@@ -56,7 +57,7 @@ std::vector<Product> Database::loadServicesFromFile(){
             std::getline(ss, priceStr, ',')) {
 
             double price = std::stod(priceStr);
-            serviceList.push_back(std::make_shared<Service>(id, name, category, price));
+            serviceList.push_back(Service(id, name, category, price));
         }
     }
 

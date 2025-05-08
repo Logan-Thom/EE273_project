@@ -39,7 +39,7 @@ void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, in
         bool found = false;
         for (const auto& product : products) {
             if (productId == product.getId()) {
-                int stock = product->getStock();
+                int stock = product.getStock();
                 int quantity = 1;
 
                 if (stock > 1) {
@@ -138,7 +138,8 @@ void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int
 
         switch (choice) {
         case 1: { // Edit quantity of an item
-            int productId, newQuantity;
+            std::string productId;
+            int newQuantity;
             std::cout << "Enter the Product ID to edit: ";
             std::cin >> productId;
 
@@ -169,7 +170,7 @@ void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int
         }
 
         case 2: { // Remove an item
-            int productId;
+            std::string productId;
             std::cout << "Enter the Product ID to remove: ";
             std::cin >> productId;
 
