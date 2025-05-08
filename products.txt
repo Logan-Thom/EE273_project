@@ -97,4 +97,4 @@ P96,Smart TV,Electronics,347.17,40
 P97,Poetry Collection,Books,1470.6,131
 P98,Science Fiction Novel,Books,95.62,87
 P99,Backpack,Clothing,613.82,19
-P100,Hoodie,Clothing,699.07,16
+P100,Hoodie,Clothing,699.07,15

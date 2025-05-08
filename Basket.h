@@ -1,3 +1,10 @@
+/*
+Utility class header for functionality relating to the order basket
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #ifndef BASKET_H
 #define BASKET_H
 

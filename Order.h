@@ -1,3 +1,10 @@
+/*
+Class header containing functionality for the orders external file and options for viewing of order history
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #pragma once
 #include <string>
 #include <vector>

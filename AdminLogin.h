@@ -1,3 +1,10 @@
+/*
+Class Header for admin login information
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #ifndef ADMIN_H
 #define ADMIN_H
 

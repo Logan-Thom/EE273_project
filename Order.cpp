@@ -51,7 +51,7 @@ void Order::CreateDataVec(){
             }
         }
 
-        //default count is 6 for a 1 item purchase, increasing items by 1 increases commas by 3
+        //default count is 7 for a 1 item purchase, increasing items by 1 increases commas by 3
         //use this to find item count
         numberOfItemsBought = ((countOfCommas - 3) / 3);
 

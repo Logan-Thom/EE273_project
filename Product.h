@@ -1,3 +1,10 @@
+/*
+Class Header for storage of product data types and handling of that data
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #ifndef PRODUCT_H
 #define PRODUCT_H
 

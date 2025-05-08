@@ -2,7 +2,6 @@
 #include "ECommerce.h"
 #include "Service.h"
 #include <fstream>
-#include <string>
 #include <memory>
 #include <sstream>
 #include <iostream>
@@ -154,4 +153,12 @@ void Database::checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket)
     outFile.close();
     return;
 
+}
+
+void Database::save_coupons(ECommerce* ecommerce){
+    ofstream coupFile("coupons.txt");
+    for (auto& coup : ecommerce.GetCoupons()){
+        coupFile << coup.getCouponID() << "," << coup.getCode() << "," << coup.getDiscountPercentage() << "," << coup.getUsed << "," << coup.getMaxUses() << "," << coup.isActive() << "\n";
+    }
+    coupFile.close();
 }

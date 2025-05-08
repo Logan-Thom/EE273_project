@@ -1,7 +1,10 @@
 /*
-* Parent class for all functions which will display to the screen,
-* adds essential control for this
+Parent class to handle screen operations when navigating the site
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
 */
+
 
 #ifndef _DISPLAY_H
 #define _DISPLAY_H

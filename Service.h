@@ -1,3 +1,10 @@
+/*
+Child class of products, having all of the same functionality but reduced access to stock values. 
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #ifndef SERVICE_H
 #define SERVICE_H
 

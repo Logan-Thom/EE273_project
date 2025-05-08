@@ -1,3 +1,10 @@
+/*
+Header for use of email sending functionality 
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #ifndef EMAIL_SENDER_H
 #define EMAIL_SENDER_H
 

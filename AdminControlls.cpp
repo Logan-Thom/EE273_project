@@ -85,18 +85,14 @@ void AdminControlls::viewProducts(){
     }
 }
 
-//!!! General principle. Show inventory, ask for ID, give options, update vector (products probs)
+
 void AdminControlls::manageInventory(){
     //view so you can actually see what is being editted, 
-    //need a new condensed method to call a refreshing version of this
     bool stay_on_screen = true;
     while(stay_on_screen){
         //should refresh inventory view each time
-        //need to edit the file too
         this->viewProducts();
 
-
-        //need input validation here
         std::string ID_for_restock;
         int num_to_restock;
         std::cout << "Select number of ID of item to restock, 'back' to return" << std::endl;

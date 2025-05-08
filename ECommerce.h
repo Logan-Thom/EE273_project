@@ -1,3 +1,11 @@
+/*
+Primary Class, handles initialisation of data, intitial menus and is the entry for all functionality
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
+
 #pragma once
 
 #include "AdminControlls.h"
@@ -36,7 +44,7 @@ class ECommerce : public Display {
         std::vector<Coupon> LoadCoupons(void);
         std::vector<Product> LoadServices(void);
         //getters
-        AdminControlls GetAdminControlls(void);
+        AdminControlls& GetAdminControlls(void);
         std::vector<Coupon> GetCoupons(void);
         //menu related
         int getTotalBasketItems(const std::vector<std::pair<Product, int>>& basket);

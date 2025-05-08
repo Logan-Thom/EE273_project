@@ -20,9 +20,10 @@ ECommerce::ECommerce() : products(LoadProducts()), services(LoadServices()), cou
 
 ECommerce::~ECommerce(){
     this->adminControlls.order.SaveDataVec();
+    this->database_utils.save_coupons(*this);
 }
 
-AdminControlls ECommerce::GetAdminControlls(){
+AdminControlls& ECommerce::GetAdminControlls(){
     return this->adminControlls;
 }
 

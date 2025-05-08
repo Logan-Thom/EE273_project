@@ -1,3 +1,10 @@
+/*
+Class Header containing functionality for admin menu controlls and options
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #pragma once
 #include "Display.h"
 #include <string>

@@ -1,9 +1,12 @@
 #include "Coupon.h"
 #include <iostream>
 
+
 Coupon::Coupon(int id, const std::string& code, double discount, int maxUses, int used, bool active)
     : couponID(id), code(code), discountPercentage(discount), used(used), maxUses(maxUses), active(active) {
 }
+
+
 
 int Coupon::getCouponID() const { return couponID; }
 std::string Coupon::getCode() const { return code; }

@@ -1,3 +1,10 @@
+/*
+Class structure to hold data for various coupons used in the system
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #ifndef COUPON_H
 #define COUPON_H
 
