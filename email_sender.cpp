@@ -1,9 +1,10 @@
 ﻿
 #include "email_sender.h"
 
-/*
+
 #include <iostream>
 #include <sstream>
+#include <cstring>
 
 #define SMTP_SERVER "smtp://smtp.gmail.com:587"
 #define SENDER_EMAIL "ee273ecom@gmail.com"
@@ -129,4 +130,3 @@ void send_order_emails(const std::string& customer_email,
 
     send_email(SUPPLIER_EMAIL, "New Order Received", supplier_body.str());
 }
-*/

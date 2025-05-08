@@ -1,7 +1,7 @@
 ﻿#include "Checkout.h"
 #include "Database.h"
 #include "Order.h"
-//#include "email_sender.h"
+#include "email_sender.h"
 #include "ECommerce.h"
 #include <iostream>
 #include <fstream>
@@ -119,7 +119,8 @@ void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Pro
     std::cout << "Ready to Purchase\n";
     ecommerce.PauseProgram();
 
-
+    std::string current_time = getCurrentTimestamp();
+    send_order_emails(email, basket, current_time, cardNumber, expiryDate, totalCost);
     ecommerce.database_utils->checkoutUpdateStock(basket);
 
 
