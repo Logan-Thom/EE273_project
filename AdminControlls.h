@@ -33,7 +33,6 @@ class AdminControlls : public Display {
 
     std::vector<productInformation> vector_of_products;
     
-    bool running;
 
     public:
         Order order;
@@ -41,7 +40,6 @@ class AdminControlls : public Display {
 
     public:
     AdminControlls(std::vector<Product>& prod){
-        this->running = true;
         this->products_vec = prod;
     }
     void displayAdminMenu();
@@ -50,6 +48,6 @@ class AdminControlls : public Display {
     void manageInventory();
     void manageCoupons();
     void editProductVec();
-    void returnToMainMenu();
+    bool returnToMainMenu();
 
 };

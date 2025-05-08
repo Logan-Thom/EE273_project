@@ -99,7 +99,8 @@ void Basket::viewBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int
     if (basket.empty()) {
         std::cout << "\nYour basket is empty.\n";
         ecommerce.PauseProgram();
-        ecommerce.handleMenuSelection();
+        // ecommerce.handleMenuSelection();
+        return; //attempting to stop functions within functions
     }
     std::cout << "\n========================\n";
     std::cout << "\nYour Basket:\n";

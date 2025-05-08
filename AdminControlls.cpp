@@ -21,8 +21,8 @@ void AdminControlls::displayAdminMenu(){
 //to select the correct one, talk to Jamie about it
 void AdminControlls::menuOptionSelect(){
 
-
-    while(this->running){
+bool running = true;
+    while(running){
         this->displayAdminMenu();
 
         //this can also be inheritted
@@ -55,7 +55,7 @@ void AdminControlls::menuOptionSelect(){
                 //!!!manage coupons
                 break;
             case 5:
-                this->returnToMainMenu();
+                running = this->returnToMainMenu();
                 break;
             default:
                 std::cout << "Unknown option, returning to main menu..." << std::endl;
@@ -123,6 +123,7 @@ void AdminControlls::editProductVec(){
     productFile.close();
 }
 */
-void AdminControlls::returnToMainMenu(){
-    this->running = false;
+bool AdminControlls::returnToMainMenu(){
+    //in case extra things need to be done here
+    return false;
 }

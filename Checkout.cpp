@@ -73,7 +73,7 @@ void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Pro
     if (basket.empty()) {
         std::cout << "\nYour basket is empty. Add products before checking out.\n\n";
         ecommerce.PauseProgram();
-        ecommerce.handleMenuSelection();
+        return; //stop the rabit hole
     }
     
     std::string cardNumber, expiryDate, cvv, email;
