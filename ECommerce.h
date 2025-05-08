@@ -20,7 +20,7 @@ class ECommerce : public Display {
         std::vector<Product> products;
         std::vector<Coupon> coupons;
         std::vector<Product> services;
-        AdminControlls adminControlls{products};
+        AdminControlls adminControlls;
 
     public:
         Basket* basket_utils;
@@ -32,9 +32,9 @@ class ECommerce : public Display {
     public:
         ECommerce();
         ~ECommerce();
-        void LoadProducts(void);
-        void LoadCoupons(void);
-        void LoadServices(void);
+        std::vector<Product> LoadProducts(void);
+        std::vector<Coupon> LoadCoupons(void);
+        std::vector<Product> LoadServices(void);
         //getters
         AdminControlls GetAdminControlls(void);
         std::vector<Coupon> GetCoupons(void);

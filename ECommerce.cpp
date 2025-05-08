@@ -11,11 +11,11 @@
 #include <set>
 #include <map>
 
-ECommerce::ECommerce(){
+ECommerce::ECommerce() : products(LoadProducts()), services(LoadServices()), coupons(LoadCoupons()), adminControlls(products, services, coupons) //need to initialise in specific order
+{
     this->adminControlls.order.CreateDataVec();
     this->adminControlls.order.SortDataVec();
     this->LoadCoupons();
-    this->LoadProducts();
 }
 
 ECommerce::~ECommerce(){
@@ -277,16 +277,16 @@ void ECommerce::attemptLogin(){
     std::cout << "Login attemps exceeded, redirecting...";
 }
 
-void ECommerce::LoadCoupons(){
-    this->coupons = this->database_utils->loadCouponsFromFile();
+std::vector<Coupon> ECommerce::LoadCoupons(){
+    return this->database_utils->loadCouponsFromFile();
 }
 
-void ECommerce::LoadProducts(){
-    this->products = this->database_utils->loadProductsFromFile();
+std::vector<Product> ECommerce::LoadProducts(){
+    return this->database_utils->loadProductsFromFile();
 }
 
-void ECommerce::LoadServices(){
-    this->services = this->database_utils->loadServicesFromFile();
+std::vector<Product> ECommerce::LoadServices(){
+    return this->database_utils->loadServicesFromFile();
 }
 
 std::vector<Coupon> ECommerce::GetCoupons(){

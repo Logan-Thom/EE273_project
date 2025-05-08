@@ -24,6 +24,9 @@ public:
     int getMaxUses() const;
     bool isActive() const;
     void usesCoupon();
+    void SetUses(int uses_remaining);
+    void SetActive(bool activation);
+    void SetDiscount(float discount);
  
 
 };

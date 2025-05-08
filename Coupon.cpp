@@ -14,3 +14,14 @@ bool Coupon::isActive() const { return active; }
 void Coupon::usesCoupon() { used+=1; }
 
 
+void Coupon::SetActive(bool activation){
+    this->active = activation;
+}
+
+void Coupon::SetUses(int num){
+    this->maxUses = num;
+}
+
+void Coupon::SetDiscount(float discount){
+    this->discountPercentage = discount;
+}

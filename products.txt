@@ -1,4 +1,4 @@
-P1,VR Headset,Electronics,56.52,39
+P1,VR Headset,Electronics,56.52,34
 P2,External Hard Drive,Electronics,518.91,85
 P3,E-Reader,Electronics,1275.57,160
 P4,Running Shoes,Clothing,372.08,32
@@ -96,5 +96,5 @@ P95,Travel Guide,Books,1322.48,72
 P96,Smart TV,Electronics,347.17,40
 P97,Poetry Collection,Books,1470.6,131
 P98,Science Fiction Novel,Books,95.62,87
-P99,Backpack,Clothing,613.82,28
+P99,Backpack,Clothing,613.82,19
 P100,Hoodie,Clothing,699.07,16
