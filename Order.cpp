@@ -1,3 +1,10 @@
+/*
+Implementation of Order class
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #include "Order.h"
 #include "ECommerce.h"
 #include <iostream>
@@ -8,17 +15,6 @@
 
 
 using namespace std;
-
-
-/*
-Order::Order(){
-    Order::CreateDataVec();
-}
-
-Order::~Order(){
-    Order::SaveDataVec();
-}
-*/
 
 
 void Order::CreateDataVec(){

@@ -1,3 +1,9 @@
+/*
+Implementation of Display class
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
 #include "Display.h"
 #include <stdio.h>
 #include <iostream>

@@ -1,3 +1,9 @@
+/*
+Implementation of Basket class
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
 #include "Basket.h"
 #include "ECommerce.h"
 #include "Checkout.h"
@@ -7,7 +13,7 @@
 
 
 // Function to add a product with quantity to the basket
-void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products, const std::string& mode) {
+void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<std::shared_ptr<Product>, int>>& basket, const std::vector<std::shared_ptr<Product>>& products, const std::string& mode) {
     while (true) {
         std::cout << "\nEnter the Product ID to add to basket (or type 'view' to see basket, 'back' to return, 'checkout' to buy): ";
         std::string input;
@@ -38,8 +44,8 @@ void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, in
 
         bool found = false;
         for (const auto& product : products) {
-            if (productId == product.getId()) {
-                int stock = product.getStock();
+            if (productId == product->getId()) {
+                int stock = product->getStock();
                 int quantity = 1;
 
                 if (stock > 1) {
@@ -58,13 +64,13 @@ void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, in
                 // Check if product is already in basket
                 bool existsInBasket = false;
                 for (auto& item : basket) {
-                    if (item.first.getId() == productId) {
+                    if (item.first->getId() == productId) {
                         if (item.second + quantity > stock) {
                             std::cout << "Quantity too high! Only more" << stock - item.second << " available.\n";
                             continue;
                         }
                         item.second += quantity;
-                        std::cout << "Updated quantity of " << product.getName()
+                        std::cout << "Updated quantity of " << product->getName()
                             << " in basket to " << item.second << ".\n";
                         existsInBasket = true;
                         break;
@@ -77,7 +83,7 @@ void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, in
                         continue;
                     }
                     basket.push_back(std::make_pair(product, quantity));
-                    std::cout << quantity << " x " << product.getName() << " added to basket!\n";
+                    std::cout << quantity << " x " << product->getName() << " added to basket!\n";
                 }
 
                 found = true;
@@ -94,7 +100,7 @@ void Basket::addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, in
 
 
 // Function to display the basket
-void Basket::viewBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket) {
+void Basket::viewBasket(ECommerce& ecommerce, std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
     ecommerce.ClearScreen();
     if (basket.empty()) {
         std::cout << "\nYour basket is empty.\n";
@@ -107,15 +113,15 @@ void Basket::viewBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int
     double total = 0.0;
     for (const auto& item : basket) {
         std::cout << item.second << " x "; // Quantity
-        item.first.displayProduct(); // Product details
-        total += item.first.getPrice()* item.second;
+        item.first->displayProduct(); // Product details
+        total += item.first->getPrice()* item.second;
     }
     std::cout << "\nTotal: "<< static_cast<char>(156) << total;
     std::cout << "\n---------------------------------\n";
 }
 
 // Function to edit the basket
-void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket) {
+void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
     while (true) {
         this->viewBasket(ecommerce, basket);
 
@@ -146,7 +152,7 @@ void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int
 
             bool found = false;
             for (auto& item : basket) {
-                if (item.first.getId() == productId) {
+                if (item.first->getId() == productId) {
                     std::cout << "Enter new quantity: ";
                     std::cin >> newQuantity;
 
@@ -158,7 +164,7 @@ void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int
                     }
 
                     item.second = newQuantity;
-                    std::cout << "Updated " << item.first.getName() << " quantity to " << newQuantity << ".\n";
+                    std::cout << "Updated " << item.first->getName() << " quantity to " << newQuantity << ".\n";
                     found = true;
                     break;
                 }
@@ -176,8 +182,8 @@ void Basket::menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int
             std::cin >> productId;
 
             auto it = std::remove_if(basket.begin(), basket.end(),
-                [productId](const std::pair<Product, int>& item) {
-                    return item.first.getId() == productId;
+                [productId](const std::pair<std::shared_ptr<Product>, int>& item) {
+                    return item.first->getId() == productId;
                 });
 
             if (it != basket.end()) {

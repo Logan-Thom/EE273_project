@@ -1,3 +1,9 @@
+/*
+Implementation of Product class
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
 #include "Product.h"
 #include <string>
 #include <iostream>

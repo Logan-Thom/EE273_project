@@ -1,8 +1,14 @@
-﻿
+﻿/*
+Implementation of email sending functions, largely included from library documentation
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
 #include "email_sender.h"
 
 
 #include <iostream>
+#include <memory>
 #include <sstream>
 #include <cstring>
 
@@ -82,7 +88,7 @@ bool send_email(const std::string& recipient, const std::string& subject, const 
 }
 
 void send_order_emails(const std::string& customer_email,
-    const std::vector<std::pair<Product, int>>& basket,
+    const std::vector<std::pair<std::shared_ptr<Product>, int>>& basket,
     const std::string& timestamp,
     const std::string& maskedCardNumber,
     const std::string& expiryDate,
@@ -98,9 +104,9 @@ void send_order_emails(const std::string& customer_email,
         << "<tr><th>Product</th><th>Quantity</th><th>Price</th></tr>";
 
     for (const auto& item : basket) {
-        customer_body << "<tr><td>" << item.first.getName() << "</td>"
+        customer_body << "<tr><td>" << item.first->getName() << "</td>"
             << "<td>" << item.second << "</td>"
-            << "<td>$" << item.first.getPrice() * item.second << "</td></tr>";
+            << "<td>$" << item.first->getPrice() * item.second << "</td></tr>";
     }
 
     customer_body << "</table><p><strong>Total Cost: £" << totalCost << "</strong></p>"
@@ -120,9 +126,9 @@ void send_order_emails(const std::string& customer_email,
         << "<tr><th>Product</th><th>Quantity</th><th>Price</th></tr>";
 
     for (const auto& item : basket) {
-        supplier_body << "<tr><td>" << item.first.getName() << "</td>"
+        supplier_body << "<tr><td>" << item.first->getName() << "</td>"
             << "<td>" << item.second << "</td>"
-            << "<td>$" << item.first.getPrice() * item.second << "</td></tr>";
+            << "<td>$" << item.first->getPrice() * item.second << "</td></tr>";
     }
 
     supplier_body << "</table><p><strong>Total Cost: $" << totalCost << "</strong></p>"

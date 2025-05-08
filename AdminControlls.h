@@ -11,6 +11,7 @@ Updated By: Logan Thom, Jamie Briggs
 #include <vector>
 #include "Product.h"
 #include "Coupon.h"
+#include <memory>
 #include "Order.h"
 
 class AdminControlls : public Display {
@@ -24,7 +25,7 @@ class AdminControlls : public Display {
     };
 
     struct orderInformation{
-        int items_bought; //may be able to use this to combine orders within the vector
+        int items_bought; //able to use this to combine orders within the vector
         std::string date;
         std::string time;
         int card_identifier;
@@ -39,12 +40,12 @@ class AdminControlls : public Display {
     
     public:
         Order order;
-        std::vector<Product> products_vec;
-        std::vector<Product> services_vec;
+        std::vector<std::shared_ptr<Product>> products_vec;
+        std::vector<std::shared_ptr<Product>> services_vec;
         std::vector<Coupon> coupons_vec;
 
     public:
-    AdminControlls(std::vector<Product>& prod, std::vector<Product>& serv, std::vector<Coupon>& coup){
+    AdminControlls(std::vector<std::shared_ptr<Product>>& prod, std::vector<std::shared_ptr<Product>>& serv, std::vector<Coupon>& coup){
         this->products_vec = prod;
         this->services_vec = serv;
         this->coupons_vec = coup;

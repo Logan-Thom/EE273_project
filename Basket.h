@@ -11,6 +11,7 @@ Updated By: Logan Thom, Jamie Briggs
 #include "Product.h"
 #include "ECommerce.h"
 #include <vector>
+#include <memory>
 #include <utility> // For std::pair
 
 
@@ -21,9 +22,9 @@ class Basket {
 
 public:
 
-void addToBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket, const std::vector<Product>& products, const std::string& mode);
-void viewBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket);
-void menuBasket(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket); // New function for editing basket
+void addToBasket(ECommerce& ecommerce, std::vector<std::pair<std::shared_ptr<Product>, int>>& basket, const std::vector<std::shared_ptr<Product>>& products, const std::string& mode);
+void viewBasket(ECommerce& ecommerce, std::vector<std::pair<std::shared_ptr<Product>, int>>& basket);
+void menuBasket(ECommerce& ecommerce, std::vector<std::pair<std::shared_ptr<Product>, int>>& basket); // New function for editing basket
 
 };
 #endif

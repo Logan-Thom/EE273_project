@@ -1,9 +1,16 @@
+/*
+Implementation of AdminControlls class
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
 #include "AdminControlls.h"
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <memory>
 
 
 void AdminControlls::displayAdminMenu(){
@@ -74,14 +81,14 @@ void AdminControlls::viewInventory(){
     this->viewProducts(); //no repeating
 
     for (auto& serv : this->services_vec){
-        std::cout << serv.getId() << " " << serv.getName() << std::endl;
+        std::cout << serv->getId() << " " << serv->getName() << std::endl;
     }
 
 }
 
 void AdminControlls::viewProducts(){
     for (auto& prod : this->products_vec){
-        std::cout << prod.getId() << " " << prod.getName() << " " << prod.getStock() << std::endl;
+        std::cout << prod->getId() << " " << prod->getName() << " " << prod->getStock() << std::endl;
     }
 }
 
@@ -110,7 +117,7 @@ void AdminControlls::manageInventory(){
         //this may not work, need to check reference
         std::cout << "How many items do you wish to add? " << std::endl;
         std::cin >> num_to_restock;
-        products_vec[ID - 1].addStock(num_to_restock);
+        products_vec[ID - 1]->addStock(num_to_restock);
     }
 }
 

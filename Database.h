@@ -11,18 +11,22 @@ Updated By: Logan Thom, Jamie Briggs
 
 #include "Product.h"
 #include "Coupon.h"
+#include "ECommerce.h"
 #include <vector>
+#include <memory>
+
+class ECommerce;
 
 class Database {
 
 public:
 
-std::vector<Product> loadProductsFromFile();
-std::vector<Product> loadServicesFromFile();
+std::vector<std::shared_ptr<Product>> loadProductsFromFile();
+std::vector<std::shared_ptr<Product>> loadServicesFromFile();
 std::vector<Coupon> loadCouponsFromFile();
-void save_coupons(ECommerce* ecommerce);
+void save_coupons(ECommerce& ecommerce);
 void updateCouponUsage(int couponID, std::vector<Coupon>& coupons);
-void checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket);
+void checkoutUpdateStock(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket);
 
 };
 

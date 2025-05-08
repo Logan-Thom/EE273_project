@@ -1,4 +1,10 @@
-﻿#include "Checkout.h"
+﻿/*
+Implementation of Checkout class
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+#include "Checkout.h"
 #include "Database.h"
 #include "Order.h"
 #include "email_sender.h"
@@ -68,7 +74,7 @@ double Checkout::getCouponDiscount(ECommerce& ecommerce) {
 
 
 // Function to handle checkout
-void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket) {
+void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
     ecommerce.ClearScreen();
     if (basket.empty()) {
         std::cout << "\nYour basket is empty. Add products before checking out.\n\n";
@@ -101,8 +107,8 @@ void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Pro
     double totalCost = 0.0;
     for (const auto& item : basket) {
         std::cout << item.second << " x "; // Quantity
-        item.first.displayProduct(); // Product details
-        totalCost += item.first.getPrice() * item.second;
+        item.first->displayProduct(); // Product details
+        totalCost += item.first->getPrice() * item.second;
     }
     std::cout << "\nTotal: " << static_cast<char>(156) << totalCost;
     std::cout << "\n---------------------------------\n";
@@ -134,9 +140,9 @@ void Checkout::proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Pro
         order.date_time = ( (stoi(order.time.substr(6,2))) + ((stoi(order.time.substr(3,2)))*100) + ((stoi(order.time.substr(0,2)))*10000) + ((stoi(order.date.substr(8,2)))*1000000) + ((stoi(order.date.substr(5,2)))*100000000) + ((stoi(order.date.substr(0,4)))*1000000000000)); //makes an int of the timestamp, useful for sorting.
         order.card_identifier = stoi(cardNumber.substr(12,4));
         order.card_expiry = expiryDate;
-        order.item = item.first.getName(); //same name for both but should work because different namespaces
+        order.item = item.first->getName(); //same name for both but should work because different namespaces
         order.quantity = item.second;
-        order.unit_cost = item.first.getPrice();
+        order.unit_cost = item.first->getPrice();
         order.total_payment = totalCost;
         
         ecommerce.GetAdminControlls().order.AddToOrderVec(order);

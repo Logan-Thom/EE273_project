@@ -1,1 +1,1 @@
-g++ AdminControlls.cpp AdminLogin.cpp Basket.cpp Checkout.cpp Coupon.cpp Service.cpp Database.cpp Display.cpp ECommerce.cpp email_sender.cpp Order.cpp Product.cpp main.cpp -lcurl
+g++ AdminControlls.cpp AdminLogin.cpp Basket.cpp Checkout.cpp Coupon.cpp Service.cpp Database.cpp Display.cpp ECommerce.cpp email_sender.cpp Order.cpp Product.cpp main.cpp -lcurl -g

@@ -1,3 +1,11 @@
+/*
+Implementation of Coupon class, these comments dont do much
+on .cpp files, headers are far better to get an idea of what it does
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
+
 #include "Coupon.h"
 #include <iostream>
 

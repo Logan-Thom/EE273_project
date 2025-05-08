@@ -21,7 +21,7 @@ class Checkout {
 
 public: 
 
-void proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<Product, int>>& basket);
+void proceedToCheckout(ECommerce& ecommerce, std::vector<std::pair<std::shared_ptr<Product>, int>>& basket);
 double getCouponDiscount(ECommerce& ecommerce);
 std::string getCurrentTimestamp();
 

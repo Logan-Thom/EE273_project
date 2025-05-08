@@ -1,4 +1,4 @@
-P1,VR Headset,Electronics,56.52,34
+P1,VR Headset,Electronics,56.52,33
 P2,External Hard Drive,Electronics,518.91,85
 P3,E-Reader,Electronics,1275.57,160
 P4,Running Shoes,Clothing,372.08,32

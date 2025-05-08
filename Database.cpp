@@ -1,3 +1,9 @@
+/*
+Implementation of Database class
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
 #include "Database.h"
 #include "ECommerce.h"
 #include "Service.h"
@@ -6,8 +12,8 @@
 #include <sstream>
 #include <iostream>
 
-std::vector<Product> Database::loadProductsFromFile() {
-    std::vector<Product> productList;
+std::vector<std::shared_ptr<Product>> Database::loadProductsFromFile() {
+    std::vector<std::shared_ptr<Product>> productList;
     std::ifstream file("products.txt");
 
     if (!file) {
@@ -30,7 +36,7 @@ std::vector<Product> Database::loadProductsFromFile() {
             double price = std::stod(priceStr);
             int stock = std::stoi(stockStr);
 
-            productList.emplace_back(id, name, category, price, stock);
+            productList.emplace_back(std::make_shared<Product>(id, name, category, price, stock));
         }
     }
 
@@ -38,8 +44,8 @@ std::vector<Product> Database::loadProductsFromFile() {
     return productList;
 }
 
-std::vector<Product> Database::loadServicesFromFile(){
-    std::vector<Product> serviceList;
+std::vector<std::shared_ptr<Product>> Database::loadServicesFromFile(){
+    std::vector<std::shared_ptr<Product>> serviceList;
     std::ifstream file("services.txt");
 
     if (!file) {
@@ -58,7 +64,7 @@ std::vector<Product> Database::loadServicesFromFile(){
             std::getline(ss, priceStr, ',')) {
 
             double price = std::stod(priceStr);
-            serviceList.push_back(Service(id, name, category, price));
+            serviceList.push_back(std::make_shared<Service>(id, name, category, price));
         }
     }
 
@@ -93,7 +99,7 @@ std::vector<Coupon> Database::loadCouponsFromFile() {
             double discount = std::stod(discountStr); 
             int used = std::stoi(usedStr);
             int maxUses = std::stoi(maxUsesStr);
-            bool active = (std::stoi(activeStr) == 1);
+            bool active = 1;
 
             coupons.emplace_back(id, code, discount, maxUses, used, active);
         }
@@ -128,13 +134,13 @@ void Database::updateCouponUsage(int couponID, std::vector<Coupon>& coupons){
 }
 
 
-void Database::checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket) {
-    std::vector<Product> products = loadProductsFromFile();
+void Database::checkoutUpdateStock(std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
+    std::vector<shared_ptr<Product>> products = loadProductsFromFile();
 
     for (const auto& item : basket) {
         for (auto& product : products) {
-            if (product.getId() == item.first.getId()) {
-                product.removeStock(item.second);
+            if (product->getId() == item.first->getId()) {
+                product->removeStock(item.second);
             }
         }
     }
@@ -145,9 +151,9 @@ void Database::checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket)
         return;
     }
     for (const auto& product : products) {
-        outFile << product.getId() << "," << product.getName() << ","
-            << product.getCategory() << "," << product.getPrice() << ","
-            << product.getStock() << "\n";
+        outFile << product->getId() << "," << product->getName() << ","
+            << product->getCategory() << "," << product->getPrice() << ","
+            << product->getStock() << "\n";
     }
 
     outFile.close();
@@ -155,10 +161,10 @@ void Database::checkoutUpdateStock(std::vector<std::pair<Product, int>>& basket)
 
 }
 
-void Database::save_coupons(ECommerce* ecommerce){
+void Database::save_coupons(ECommerce& ecommerce){
     ofstream coupFile("coupons.txt");
     for (auto& coup : ecommerce.GetCoupons()){
-        coupFile << coup.getCouponID() << "," << coup.getCode() << "," << coup.getDiscountPercentage() << "," << coup.getUsed << "," << coup.getMaxUses() << "," << coup.isActive() << "\n";
+        coupFile << coup.getCouponID() << "," << coup.getCode() << "," << coup.getDiscountPercentage() << "," << coup.getUsed() << "," << coup.getMaxUses() << "," << coup.isActive() << "\n";
     }
     coupFile.close();
 }

@@ -1,3 +1,10 @@
+/*
+Implementation of the main class
+most of the program happens here
+Created for: EE273 E-Commerce Project
+Last Updated: 08/05/25
+Updated By: Logan Thom, Jamie Briggs
+*/
 #include "ECommerce.h"
 #include "Basket.h"
 #include "Database.h"
@@ -8,6 +15,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <memory>
 #include <set>
 #include <map>
 
@@ -20,7 +28,7 @@ ECommerce::ECommerce() : products(LoadProducts()), services(LoadServices()), cou
 
 ECommerce::~ECommerce(){
     this->adminControlls.order.SaveDataVec();
-    this->database_utils.save_coupons(*this);
+    database_utils->save_coupons(*this);
 }
 
 AdminControlls& ECommerce::GetAdminControlls(){
@@ -28,7 +36,7 @@ AdminControlls& ECommerce::GetAdminControlls(){
 }
 
 
-int ECommerce::getTotalBasketItems(const std::vector<std::pair<Product, int>>& basket) {
+int ECommerce::getTotalBasketItems(const std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
     int totalItems = 0;
     for (const auto& item : basket) {
         totalItems += 1; // Sum up the quantities of all products
@@ -36,7 +44,7 @@ int ECommerce::getTotalBasketItems(const std::vector<std::pair<Product, int>>& b
     return totalItems;
 }
 // Function to display the main menu
-void ECommerce::displayMainMenu(const std::vector<std::pair<Product, int>>& basket) {
+void ECommerce::displayMainMenu(const std::vector<std::pair<std::shared_ptr<Product>, int>>& basket) {
     ClearScreen();
     int basketCount = getTotalBasketItems(basket); // Get total item count
 
@@ -116,8 +124,8 @@ void ECommerce::handleMenuSelection() {
     }
 }
 
-void ECommerce::browseItems(const std::vector<Product>& items,
-    std::vector<std::pair<Product, int>>& basket,
+void ECommerce::browseItems(const std::vector<std::shared_ptr<Product>>& items,
+    std::vector<std::pair<std::shared_ptr<Product>, int>>& basket,
     const std::string& label,
     const std::string& mode) {
     ClearScreen();
@@ -130,7 +138,7 @@ void ECommerce::browseItems(const std::vector<Product>& items,
 
     std::map<std::string, int> categoryCount;
     for (const auto& item : items) {
-        categoryCount[item.getCategory()]++;
+        categoryCount[item->getCategory()]++;
     }
 
     std::vector<std::string> categoryList;
@@ -164,8 +172,8 @@ void ECommerce::browseItems(const std::vector<Product>& items,
     bool found = false;
 
     for (const auto& item : items) {
-        if (selectedCategory == "All" || item.getCategory() == selectedCategory) {
-            item.displayProduct();
+        if (selectedCategory == "All" || item->getCategory() == selectedCategory) {
+            item->displayProduct();
             found = true;
         }
     }
@@ -282,11 +290,11 @@ std::vector<Coupon> ECommerce::LoadCoupons(){
     return this->database_utils->loadCouponsFromFile();
 }
 
-std::vector<Product> ECommerce::LoadProducts(){
+std::vector<std::shared_ptr<Product>> ECommerce::LoadProducts(){
     return this->database_utils->loadProductsFromFile();
 }
 
-std::vector<Product> ECommerce::LoadServices(){
+std::vector<std::shared_ptr<Product>> ECommerce::LoadServices(){
     return this->database_utils->loadServicesFromFile();
 }
 
