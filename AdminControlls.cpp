@@ -7,6 +7,7 @@ Updated By: Logan Thom, Jamie Briggs
 #include "AdminControlls.h"
 #include <iostream>
 #include <string>
+#include <limits>
 #include <sstream>
 #include <fstream>
 #include <vector>
@@ -20,7 +21,8 @@ void AdminControlls::displayAdminMenu(){
     std::cout << "2. Manage Inventory" << std::endl;
     std::cout << "3. View Order History" << std::endl;
     std::cout << "4. Mange Coupons" << std::endl;
-    std::cout << "5. Return to Main Menu" << std::endl;
+    std::cout << "5. Add Product" << std::endl;
+    std::cout << "6. Return to Main Menu" << std::endl;
     std::cout << "========================\n";
 }
 
@@ -37,13 +39,14 @@ bool running = true;
         std::cout << "Enter your choice: ";
         std::cin >> choice;
 
-        // //input validation
-        // while(!std::cin >> choice){
-        //     std::cout << "Invalid option, please select again:" << std::endl;
-        //     //could use here too
-        //     std::cin.clear();
-        //     std::cin.ignore();
-        // }
+        if (std::cin.fail() || choice < 1 || choice > 6) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid choice. Returning...\n";
+            PauseProgram();
+            return;
+        }
+
 
         switch(choice){
             case 1:
@@ -61,6 +64,10 @@ bool running = true;
                 this->manageCoupons();
                 break;
             case 5:
+                //add product
+                this->addProduct();
+                break;
+            case 6:
                 running = this->returnToMainMenu();
                 break;
             default:
@@ -84,6 +91,35 @@ void AdminControlls::viewInventory(){
         std::cout << serv->getId() << " " << serv->getName() << std::endl;
     }
 
+}
+
+void AdminControlls::addProduct(){
+    std::string new_name;
+    std::cout << "Enter the name of the product" << std::endl;
+    std::cin >> new_name;
+
+    std::string new_cat;
+    std::cout << "Enter the category of the new product (P) or (S)" << std::endl;
+    std::cin >> new_cat;
+
+    float new_price;
+    std::cout << "Enter the price of the new product" << std::endl;
+    std::cin >> new_price;
+
+    int n_stock;
+    std::cout << "How much stock is available?" << std::endl;
+    std::cin >> n_stock;
+
+    std::string category_ps;
+    if(new_cat == "P"){
+        category_ps = "Product";
+        this->products_vec.push_back(std::make_shared<Product>((new_cat + std::to_string((products_vec.size())+1)), new_name, category_ps, new_price, n_stock));
+    } else if(new_cat == "S") {
+        category_ps = "Service";
+        this->services_vec.push_back(std::make_shared<Service>((new_cat + std::to_string((products_vec.size())+1)), new_name, category_ps, new_price, n_stock));
+    }
+
+    
 }
 
 void AdminControlls::viewProducts(){

@@ -40,8 +40,8 @@ class AdminControlls : public Display {
     
     public:
         Order order;
-        std::vector<std::shared_ptr<Product>> products_vec;
-        std::vector<std::shared_ptr<Product>> services_vec;
+        std::vector<std::shared_ptr<Product>>& products_vec;
+        std::vector<std::shared_ptr<Product>>& services_vec;
         std::vector<Coupon> coupons_vec;
 
     public:
@@ -57,6 +57,7 @@ class AdminControlls : public Display {
     void manageInventory();
     void manageCoupons();
     void editProductVec();
+    void addProduct();
     bool returnToMainMenu();
     void DisplayCoupons();
 };
